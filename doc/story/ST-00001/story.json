@@ -1,0 +1,24 @@
+{
+  "id": "ST-00001",
+  "title": "Snake game",
+  "currentStep": "Done",
+  "createdAt": "2026-04-16T10:00:35.576Z",
+  "updatedAt": "2026-04-16T21:27:30.573Z",
+  "baseCommit": "136c061d2ac09b098290c46e440eaffd68ba8a93",
+  "reviewLoops": 2,
+  "acceptedAt": {
+    "Draft": "2026-04-16T10:21:25.131Z",
+    "Plan": "2026-04-16T11:14:32.296Z",
+    "Implementation": "2026-04-16T21:26:59.153Z",
+    "Review": "2026-04-16T21:28:10.000Z",
+    "Documentation": "2026-04-16T21:29:00.000Z"
+  },
+  "lastRunAt": {
+    "Plan": "2026-04-16T11:18:21.591Z",
+    "Implementation": "2026-04-16T21:26:39.835Z",
+    "Review": "2026-04-16T21:27:30.336Z"
+  },
+  "changedFiles": [],
+  "specFilesTouched": [],
+  "reviewVerdict": "approved"
+}
