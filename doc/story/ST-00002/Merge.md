@@ -17,7 +17,7 @@
 - snake/src/render.rs
 
 ## Specification Files
-- doc/spec/ST-00002.md
+- doc/spec/overview.md
 
 ## Notes
 - The repository is now on main.

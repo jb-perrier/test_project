@@ -47,6 +47,6 @@
     "snake/src/render.rs"
   ],
   "specFilesTouched": [
-    "doc/spec/ST-00002.md"
+    "doc/spec/overview.md"
   ]
 }

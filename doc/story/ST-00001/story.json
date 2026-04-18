@@ -3,22 +3,33 @@
   "title": "Snake game",
   "currentStep": "Done",
   "createdAt": "2026-04-16T10:00:35.576Z",
-  "updatedAt": "2026-04-16T21:27:30.573Z",
+  "updatedAt": "2026-04-16T21:31:02.000Z",
   "baseCommit": "136c061d2ac09b098290c46e440eaffd68ba8a93",
+  "branchName": "story/ST-00001",
+  "targetBranchName": "main",
+  "lastImplementationCommit": "9b15a1d2f1b14fd1ad5b5d580f4b06c5b98f4b3e",
+  "mergeCommit": "4bc364fd509f4f0fb5c8ba59e2fd15fd3e2af1b0",
+  "mergedAt": "2026-04-16T21:31:02.000Z",
   "reviewLoops": 2,
   "acceptedAt": {
     "Draft": "2026-04-16T10:21:25.131Z",
     "Plan": "2026-04-16T11:14:32.296Z",
     "Implementation": "2026-04-16T21:26:59.153Z",
     "Review": "2026-04-16T21:28:10.000Z",
-    "Documentation": "2026-04-16T21:29:00.000Z"
+    "Documentation": "2026-04-16T21:29:00.000Z",
+    "Merge": "2026-04-16T21:31:02.000Z"
   },
   "lastRunAt": {
+    "Draft": "2026-04-16T10:17:10.000Z",
     "Plan": "2026-04-16T11:18:21.591Z",
     "Implementation": "2026-04-16T21:26:39.835Z",
-    "Review": "2026-04-16T21:27:30.336Z"
+    "Review": "2026-04-16T21:27:30.336Z",
+    "Documentation": "2026-04-16T21:28:42.000Z",
+    "Merge": "2026-04-16T21:31:02.000Z"
   },
   "changedFiles": [],
-  "specFilesTouched": [],
+  "specFilesTouched": [
+    "doc/spec/overview.md"
+  ],
   "reviewVerdict": "approved"
 }
