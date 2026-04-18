@@ -1,15 +1,15 @@
 # Merge
 
 ## Result
-- Status: prepared-for-merge
+- Status: merged
 - Source branch: story/ST-00004
 - Target branch: main
-- Story artifact commit: pending
-- Merge commit: pending
-- Merged at: pending
+- Story artifact commit: 36b8ac47da4b79cdb427451004aa98d29af00a63
+- Merge commit: 847418cf769cc490d77086f04ed96ed417e57abb
+- Merged at: 2026-04-18T19:09:16.728Z
 
 ## Conflicts
-- Merge has not run yet. Conflicts, if any, will be recorded after the branch merge.
+- Merge completed without conflicts.
 
 ## Included Story Changes
 - snake/README.md
@@ -20,5 +20,5 @@
 - doc/spec/gameplay.md
 
 ## Notes
-- Story artifacts are committed on the story branch and ready to merge.
-- Merge completion metadata will be recorded after the branch merge succeeds.
+- The repository is now on main.
+- Story ST-00004 is complete.
