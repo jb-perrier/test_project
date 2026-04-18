@@ -1,27 +1,31 @@
 {
   "id": "ST-00002",
   "title": "Use ratatui for the ui",
-  "currentStep": "Merge",
+  "currentStep": "Done",
   "createdAt": "2026-04-18T14:21:39.453Z",
-  "updatedAt": "2026-04-18T15:30:54.416Z",
+  "updatedAt": "2026-04-18T15:31:00.352Z",
   "baseCommit": "58f626b49cf5a8d2a67b92254f1835561e16f83a",
   "branchName": "story/ST-00002",
   "targetBranchName": "main",
   "lastImplementationCommit": "a23bce557fff39284e65a00ef8906bdd2d767f3a",
+  "mergeCommit": "35ecabec61bbb0832a212f942bbec1f7a7873aa3",
+  "mergedAt": "2026-04-18T15:31:00.347Z",
   "reviewLoops": 0,
   "acceptedAt": {
     "Draft": "2026-04-18T14:30:46.283Z",
     "Plan": "2026-04-18T14:35:19.045Z",
     "Implementation": "2026-04-18T15:08:54.589Z",
     "Review": "2026-04-18T15:28:37.324Z",
-    "Documentation": "2026-04-18T15:30:54.416Z"
+    "Documentation": "2026-04-18T15:30:54.416Z",
+    "Merge": "2026-04-18T15:31:00.347Z"
   },
   "lastRunAt": {
     "Draft": "2026-04-18T14:30:29.637Z",
     "Plan": "2026-04-18T14:32:19.416Z",
     "Implementation": "2026-04-18T15:07:51.829Z",
     "Review": "2026-04-18T15:28:27.317Z",
-    "Documentation": "2026-04-18T15:29:22.066Z"
+    "Documentation": "2026-04-18T15:29:22.066Z",
+    "Merge": "2026-04-18T15:31:00.347Z"
   },
   "reviewVerdict": "approved",
   "reviewCoverage": "complete",
