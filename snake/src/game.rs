@@ -1,3 +1,4 @@
+use std::cmp::Reverse;
 use std::collections::VecDeque;
 use std::time::Duration;
 
@@ -6,6 +7,7 @@ use rand::Rng;
 const BASE_TICK_MS: u64 = 180;
 const SPEED_STEP_MS: u64 = 8;
 const MIN_TICK_MS: u64 = 70;
+const START_LENGTH: usize = 3;
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub struct Point {
@@ -22,14 +24,35 @@ pub enum Direction {
 }
 
 impl Direction {
+  fn opposite(self) -> Direction {
+    match self {
+      Direction::Up => Direction::Down,
+      Direction::Down => Direction::Up,
+      Direction::Left => Direction::Right,
+      Direction::Right => Direction::Left,
+    }
+  }
+
+  fn left(self) -> Direction {
+    match self {
+      Direction::Up => Direction::Left,
+      Direction::Down => Direction::Right,
+      Direction::Left => Direction::Down,
+      Direction::Right => Direction::Up,
+    }
+  }
+
+  fn right(self) -> Direction {
+    match self {
+      Direction::Up => Direction::Right,
+      Direction::Down => Direction::Left,
+      Direction::Left => Direction::Up,
+      Direction::Right => Direction::Down,
+    }
+  }
+
   fn is_opposite(self, other: Direction) -> bool {
-    matches!(
-      (self, other),
-      (Direction::Up, Direction::Down)
-        | (Direction::Down, Direction::Up)
-        | (Direction::Left, Direction::Right)
-        | (Direction::Right, Direction::Left)
-    )
+    self.opposite() == other
   }
 }
 
@@ -45,15 +68,51 @@ pub enum Cell {
   Empty,
   Head,
   Body,
+  EnemyHead,
+  EnemyBody,
   Food,
+}
+
+#[derive(Clone, Debug)]
+struct Snake {
+  segments: VecDeque<Point>,
+  direction: Direction,
+  pending_direction: Option<Direction>,
+}
+
+impl Default for Snake {
+  fn default() -> Self {
+    Self {
+      segments: VecDeque::new(),
+      direction: Direction::Right,
+      pending_direction: None,
+    }
+  }
+}
+
+impl Snake {
+  fn new(segments: VecDeque<Point>, direction: Direction) -> Self {
+    Self {
+      segments,
+      direction,
+      pending_direction: None,
+    }
+  }
+
+  fn head(&self) -> Point {
+    *self.segments.front().expect("snake always has a head")
+  }
+
+  fn len(&self) -> usize {
+    self.segments.len()
+  }
 }
 
 pub struct Game {
   width: i32,
   height: i32,
-  snake: VecDeque<Point>,
-  direction: Direction,
-  pending_direction: Option<Direction>,
+  player: Snake,
+  enemy: Snake,
   food: Option<Point>,
   score: u32,
   phase: Phase,
@@ -67,9 +126,8 @@ impl Game {
     let mut game = Self {
       width,
       height,
-      snake: VecDeque::new(),
-      direction: Direction::Right,
-      pending_direction: None,
+      player: Snake::default(),
+      enemy: Snake::default(),
       food: None,
       score: 0,
       phase: Phase::Ready,
@@ -80,25 +138,10 @@ impl Game {
   }
 
   pub fn reset(&mut self, rng: &mut impl Rng) {
-    self.snake.clear();
+    let (player, enemy) = self.starting_snakes();
 
-    let center = Point {
-      x: self.width / 2,
-      y: self.height / 2,
-    };
-
-    self.snake.push_back(center);
-    self.snake.push_back(self.wrap_point(Point {
-      x: center.x - 1,
-      y: center.y,
-    }));
-    self.snake.push_back(self.wrap_point(Point {
-      x: center.x - 2,
-      y: center.y,
-    }));
-
-    self.direction = Direction::Right;
-    self.pending_direction = None;
+    self.player = player;
+    self.enemy = enemy;
     self.score = 0;
     self.phase = Phase::Ready;
     self.food = self.spawn_food(rng);
@@ -116,15 +159,15 @@ impl Game {
   }
 
   pub fn queue_turn(&mut self, direction: Direction) {
-    if self.phase != Phase::Running || self.pending_direction.is_some() {
+    if self.phase != Phase::Running || self.player.pending_direction.is_some() {
       return;
     }
 
-    if direction.is_opposite(self.direction) || direction == self.direction {
+    if direction == self.player.direction || direction.is_opposite(self.player.direction) {
       return;
     }
 
-    self.pending_direction = Some(direction);
+    self.player.pending_direction = Some(direction);
   }
 
   pub fn step(&mut self, rng: &mut impl Rng) {
@@ -132,37 +175,32 @@ impl Game {
       return;
     }
 
-    if let Some(next_direction) = self.pending_direction.take() {
-      if !next_direction.is_opposite(self.direction) {
-        self.direction = next_direction;
-      }
-    }
+    let player_direction = self.resolve_player_direction();
+    let enemy_direction = self.choose_enemy_direction(player_direction);
+    let player_next_head = self.advance(self.player.head(), player_direction);
+    let enemy_next_head = self.advance(self.enemy.head(), enemy_direction);
+    let player_grows = self.food == Some(player_next_head);
+    let enemy_grows = self.food == Some(enemy_next_head);
 
-    let next_head = self.advance(self.head(), self.direction);
-    let growing = self.food == Some(next_head);
-    let collision_len = if growing {
-      self.snake.len()
-    } else {
-      self.snake.len().saturating_sub(1)
-    };
-
-    if self
-      .snake
-      .iter()
-      .take(collision_len)
-      .any(|segment| *segment == next_head)
-    {
+    if self.move_is_fatal(player_next_head, enemy_next_head, player_grows, enemy_grows) {
       self.phase = Phase::GameOver;
       return;
     }
 
-    self.snake.push_front(next_head);
+    Self::apply_move_to_snake(
+      &mut self.player,
+      player_direction,
+      player_next_head,
+      player_grows,
+    );
+    Self::apply_move_to_snake(&mut self.enemy, enemy_direction, enemy_next_head, enemy_grows);
 
-    if growing {
+    if player_grows {
       self.score += 1;
+    }
+
+    if player_grows || enemy_grows {
       self.food = self.spawn_food(rng);
-    } else {
-      self.snake.pop_back();
     }
   }
 
@@ -190,12 +228,20 @@ impl Game {
   pub fn cell_at(&self, x: i32, y: i32) -> Cell {
     let point = Point { x, y };
 
-    if self.snake.front().copied() == Some(point) {
+    if self.player.head() == point {
       return Cell::Head;
     }
 
-    if self.snake.iter().skip(1).any(|segment| *segment == point) {
+    if self.player.segments.iter().skip(1).any(|segment| *segment == point) {
       return Cell::Body;
+    }
+
+    if self.enemy.head() == point {
+      return Cell::EnemyHead;
+    }
+
+    if self.enemy.segments.iter().skip(1).any(|segment| *segment == point) {
+      return Cell::EnemyBody;
     }
 
     if self.food == Some(point) {
@@ -205,8 +251,155 @@ impl Game {
     Cell::Empty
   }
 
-  fn head(&self) -> Point {
-    *self.snake.front().expect("snake always has a head")
+  fn resolve_player_direction(&mut self) -> Direction {
+    let mut direction = self.player.direction;
+
+    if let Some(next_direction) = self.player.pending_direction.take() {
+      if next_direction != self.player.direction && !next_direction.is_opposite(self.player.direction)
+      {
+        direction = next_direction;
+      }
+    }
+
+    direction
+  }
+
+  fn choose_enemy_direction(&self, player_direction: Direction) -> Direction {
+    let player_next_head = self.advance(self.player.head(), player_direction);
+    let player_grows = self.food == Some(player_next_head);
+
+    for direction in self.enemy_move_candidates() {
+      let enemy_next_head = self.advance(self.enemy.head(), direction);
+      let enemy_grows = self.food == Some(enemy_next_head);
+
+      if !self.move_is_fatal(player_next_head, enemy_next_head, player_grows, enemy_grows) {
+        return direction;
+      }
+    }
+
+    self.enemy.direction
+  }
+
+  fn enemy_move_candidates(&self) -> Vec<Direction> {
+    let mut candidates = Vec::with_capacity(5);
+
+    for direction in self.preferred_food_directions(self.enemy.head()) {
+      self.push_enemy_candidate(&mut candidates, direction);
+    }
+
+    self.push_enemy_candidate(&mut candidates, self.enemy.direction);
+    self.push_enemy_candidate(&mut candidates, self.enemy.direction.left());
+    self.push_enemy_candidate(&mut candidates, self.enemy.direction.right());
+
+    if self.enemy.len() == 1 {
+      self.push_enemy_candidate(&mut candidates, self.enemy.direction.opposite());
+    }
+
+    candidates
+  }
+
+  fn push_enemy_candidate(&self, candidates: &mut Vec<Direction>, direction: Direction) {
+    if self.enemy.len() > 1 && direction.is_opposite(self.enemy.direction) {
+      return;
+    }
+
+    if !candidates.contains(&direction) {
+      candidates.push(direction);
+    }
+  }
+
+  fn preferred_food_directions(&self, from: Point) -> Vec<Direction> {
+    let mut directions = Vec::with_capacity(2);
+    let food = match self.food {
+      Some(food) => food,
+      None => return directions,
+    };
+    let horizontal = self.horizontal_food_direction(from, food);
+    let vertical = self.vertical_food_direction(from, food);
+
+    match (horizontal, vertical) {
+      (Some((horizontal_direction, horizontal_gap)), Some((vertical_direction, vertical_gap))) => {
+        if horizontal_gap >= vertical_gap {
+          directions.push(horizontal_direction);
+          directions.push(vertical_direction);
+        } else {
+          directions.push(vertical_direction);
+          directions.push(horizontal_direction);
+        }
+      }
+      (Some((horizontal_direction, _)), None) => directions.push(horizontal_direction),
+      (None, Some((vertical_direction, _))) => directions.push(vertical_direction),
+      (None, None) => {}
+    }
+
+    directions
+  }
+
+  fn horizontal_food_direction(&self, from: Point, food: Point) -> Option<(Direction, i32)> {
+    let right_distance = (food.x - from.x).rem_euclid(self.width);
+    let left_distance = (from.x - food.x).rem_euclid(self.width);
+
+    if right_distance == 0 {
+      None
+    } else if right_distance <= left_distance {
+      Some((Direction::Right, right_distance))
+    } else {
+      Some((Direction::Left, left_distance))
+    }
+  }
+
+  fn vertical_food_direction(&self, from: Point, food: Point) -> Option<(Direction, i32)> {
+    let down_distance = (food.y - from.y).rem_euclid(self.height);
+    let up_distance = (from.y - food.y).rem_euclid(self.height);
+
+    if down_distance == 0 {
+      None
+    } else if down_distance <= up_distance {
+      Some((Direction::Down, down_distance))
+    } else {
+      Some((Direction::Up, up_distance))
+    }
+  }
+
+  fn move_is_fatal(
+    &self,
+    player_next_head: Point,
+    enemy_next_head: Point,
+    player_grows: bool,
+    enemy_grows: bool,
+  ) -> bool {
+    if player_next_head == enemy_next_head {
+      return true;
+    }
+
+    Self::snake_collision(&self.player, player_next_head, player_grows)
+      || Self::snake_collision(&self.enemy, enemy_next_head, enemy_grows)
+      || Self::snake_collision(&self.enemy, player_next_head, enemy_grows)
+      || Self::snake_collision(&self.player, enemy_next_head, player_grows)
+  }
+
+  fn snake_collision(snake: &Snake, next_head: Point, grows: bool) -> bool {
+    let collision_len = if grows {
+      snake.len()
+    } else {
+      snake.len().saturating_sub(1)
+    };
+
+    snake
+      .segments
+      .iter()
+      .take(collision_len)
+      .any(|segment| *segment == next_head)
+  }
+
+  fn apply_move_to_snake(snake: &mut Snake, direction: Direction, next_head: Point, grows: bool) {
+    snake.direction = direction;
+    snake.pending_direction = None;
+    snake.segments.push_front(next_head);
+
+    if !grows {
+      snake.segments.pop_back();
+    }
   }
 
   fn advance(&self, point: Point, direction: Direction) -> Point {
@@ -245,7 +438,7 @@ impl Game {
     for y in 0..self.height {
       for x in 0..self.width {
         let point = Point { x, y };
-        if !self.snake.iter().any(|segment| *segment == point) {
+        if !self.is_occupied(point) {
           empty_cells.push(point);
         }
       }
@@ -257,6 +450,138 @@ impl Game {
       let index = rng.gen_range(0..empty_cells.len());
       Some(empty_cells[index])
     }
+  }
+
+  fn is_occupied(&self, point: Point) -> bool {
+    self
+      .player
+      .segments
+      .iter()
+      .chain(self.enemy.segments.iter())
+      .any(|segment| *segment == point)
+  }
+
+  fn starting_snakes(&self) -> (Snake, Snake) {
+    let player = self
+      .find_snake_candidate(
+        self.player_candidate_heads(),
+        &[Direction::Right, Direction::Down, Direction::Left, Direction::Up],
+        &[],
+      )
+      .expect("board must be able to place the player snake");
+
+    let occupied: Vec<Point> = player.segments.iter().copied().collect();
+    let enemy = self
+      .find_snake_candidate(
+        self.enemy_candidate_heads(player.head()),
+        &[Direction::Left, Direction::Up, Direction::Down, Direction::Right],
+        &occupied,
+      )
+      .expect("board must be able to place the enemy snake");
+
+    (player, enemy)
+  }
+
+  fn find_snake_candidate(
+    &self,
+    heads: Vec<Point>,
+    directions: &[Direction],
+    occupied: &[Point],
+  ) -> Option<Snake> {
+    for head in heads {
+      for direction in directions.iter().copied() {
+        let segments = match self.build_snake_segments(head, direction, START_LENGTH) {
+          Some(segments) => segments,
+          None => continue,
+        };
+
+        if segments.iter().any(|segment| occupied.contains(segment)) {
+          continue;
+        }
+
+        return Some(Snake::new(segments, direction));
+      }
+    }
+
+    None
+  }
+
+  fn build_snake_segments(
+    &self,
+    head: Point,
+    direction: Direction,
+    len: usize,
+  ) -> Option<VecDeque<Point>> {
+    let mut segments = VecDeque::with_capacity(len);
+    let mut current = head;
+
+    for index in 0..len {
+      if segments.iter().any(|segment| *segment == current) {
+        return None;
+      }
+
+      segments.push_back(current);
+
+      if index + 1 < len {
+        current = self.advance(current, direction.opposite());
+      }
+    }
+
+    Some(segments)
+  }
+
+  fn player_candidate_heads(&self) -> Vec<Point> {
+    let center = Point {
+      x: self.width / 2,
+      y: self.height / 2,
+    };
+    let mut points = self.all_points();
+
+    points.sort_by_key(|point| (self.center_distance_sq(*point, center), point.y, point.x));
+    points
+  }
+
+  fn enemy_candidate_heads(&self, player_head: Point) -> Vec<Point> {
+    let mut points = self.all_points();
+
+    points.sort_by_key(|point| {
+      (
+        Reverse(self.wrapped_distance_score(*point, player_head)),
+        point.y,
+        point.x,
+      )
+    });
+    points
+  }
+
+  fn all_points(&self) -> Vec<Point> {
+    let mut points = Vec::with_capacity((self.width * self.height) as usize);
+
+    for y in 0..self.height {
+      for x in 0..self.width {
+        points.push(Point { x, y });
+      }
+    }
+
+    points
+  }
+
+  fn center_distance_sq(&self, point: Point, center: Point) -> i32 {
+    let dx = point.x - center.x;
+    let dy = point.y - center.y;
+
+    dx * dx + dy * dy
+  }
+
+  fn wrapped_distance_score(&self, a: Point, b: Point) -> i32 {
+    self.wrapped_axis_distance(a.x, b.x, self.width)
+      + self.wrapped_axis_distance(a.y, b.y, self.height)
+  }
+
+  fn wrapped_axis_distance(&self, a: i32, b: i32, size: i32) -> i32 {
+    let delta = (a - b).abs();
+
+    delta.min(size - delta)
   }
 }
 
@@ -270,25 +595,71 @@ mod tests {
     StdRng::seed_from_u64(7)
   }
 
+  fn point(x: i32, y: i32) -> Point {
+    Point { x, y }
+  }
+
+  fn snake<const N: usize>(direction: Direction, segments: [Point; N]) -> Snake {
+    Snake {
+      segments: VecDeque::from(segments),
+      direction,
+      pending_direction: None,
+    }
+  }
+
+  fn snakes_occupy(game: &Game, point: Point) -> bool {
+    game
+      .player
+      .segments
+      .iter()
+      .chain(game.enemy.segments.iter())
+      .any(|segment| *segment == point)
+  }
+
   #[test]
-  fn reset_restores_centered_ready_state() {
+  fn reset_restores_centered_ready_state_with_enemy_and_food() {
     let mut rng = seeded_rng();
     let mut game = Game::new(10, 8, &mut rng);
 
     game.phase = Phase::GameOver;
     game.score = 4;
-    game.pending_direction = Some(Direction::Up);
+    game.player.pending_direction = Some(Direction::Up);
+    game.enemy.pending_direction = Some(Direction::Down);
     game.reset(&mut rng);
 
     assert_eq!(game.phase, Phase::Ready);
     assert_eq!(game.score, 0);
-    assert_eq!(game.direction, Direction::Right);
-    assert_eq!(game.pending_direction, None);
-    assert_eq!(game.snake[0], Point { x: 5, y: 4 });
-    assert_eq!(game.snake[1], Point { x: 4, y: 4 });
-    assert_eq!(game.snake[2], Point { x: 3, y: 4 });
+    assert_eq!(game.player.direction, Direction::Right);
+    assert_eq!(game.player.pending_direction, None);
+    assert_eq!(
+      game.player.segments,
+      VecDeque::from([point(5, 4), point(4, 4), point(3, 4)])
+    );
+    assert_eq!(game.enemy.direction, Direction::Left);
+    assert_eq!(game.enemy.pending_direction, None);
+    assert_eq!(
+      game.enemy.segments,
+      VecDeque::from([point(0, 0), point(1, 0), point(2, 0)])
+    );
     assert!(game.food.is_some());
-    assert!(!game.snake.iter().any(|segment| Some(*segment) == game.food));
+    assert!(!snakes_occupy(&game, game.food.unwrap()));
+  }
+
+  #[test]
+  fn cell_at_distinguishes_player_enemy_food_and_empty_cells() {
+    let mut rng = seeded_rng();
+    let mut game = Game::new(5, 5, &mut rng);
+
+    game.player = snake(Direction::Right, [point(1, 1), point(0, 1), point(0, 0)]);
+    game.enemy = snake(Direction::Down, [point(3, 2), point(3, 1), point(2, 1)]);
+    game.food = Some(point(4, 4));
+
+    assert_eq!(game.cell_at(1, 1), Cell::Head);
+    assert_eq!(game.cell_at(0, 1), Cell::Body);
+    assert_eq!(game.cell_at(3, 2), Cell::EnemyHead);
+    assert_eq!(game.cell_at(3, 1), Cell::EnemyBody);
+    assert_eq!(game.cell_at(4, 4), Cell::Food);
+    assert_eq!(game.cell_at(2, 2), Cell::Empty);
   }
 
   #[test]
@@ -297,18 +668,13 @@ mod tests {
     let mut game = Game::new(6, 5, &mut rng);
 
     game.phase = Phase::Running;
-    game.direction = Direction::Left;
-    game.pending_direction = None;
-    game.snake = VecDeque::from([
-      Point { x: 0, y: 2 },
-      Point { x: 1, y: 2 },
-      Point { x: 2, y: 2 },
-    ]);
-    game.food = Some(Point { x: 4, y: 4 });
+    game.player = snake(Direction::Left, [point(0, 2), point(1, 2), point(2, 2)]);
+    game.enemy = snake(Direction::Right, [point(3, 4), point(2, 4), point(1, 4)]);
+    game.food = Some(point(5, 4));
 
     game.step(&mut rng);
 
-    assert_eq!(game.snake.front().copied(), Some(Point { x: 5, y: 2 }));
+    assert_eq!(game.player.head(), point(5, 2));
     assert_eq!(game.phase, Phase::Running);
   }
 
@@ -318,15 +684,14 @@ mod tests {
     let mut game = Game::new(10, 8, &mut rng);
 
     game.start();
-    let previous_head = game.head();
+    game.enemy = snake(Direction::Left, [point(0, 0), point(1, 0), point(2, 0)]);
+    game.food = Some(point(9, 7));
+    let previous_head = game.player.head();
     game.queue_turn(Direction::Left);
     game.step(&mut rng);
 
-    assert_eq!(game.direction, Direction::Right);
-    assert_eq!(game.head(), Point {
-      x: previous_head.x + 1,
-      y: previous_head.y,
-    });
+    assert_eq!(game.player.direction, Direction::Right);
+    assert_eq!(game.player.head(), point(previous_head.x + 1, previous_head.y));
   }
 
   #[test]
@@ -335,15 +700,54 @@ mod tests {
     let mut game = Game::new(10, 8, &mut rng);
 
     game.phase = Phase::Running;
-    game.food = Some(Point { x: 6, y: 4 });
-    let previous_len = game.snake.len();
+    game.player = snake(Direction::Right, [point(5, 4), point(4, 4), point(3, 4)]);
+    game.enemy = snake(Direction::Left, [point(0, 0), point(1, 0), point(2, 0)]);
+    game.food = Some(point(6, 4));
+    let previous_len = game.player.len();
 
     game.step(&mut rng);
 
     assert_eq!(game.score, 1);
-    assert_eq!(game.snake.len(), previous_len + 1);
-    assert_ne!(game.food, Some(Point { x: 6, y: 4 }));
-    assert!(!game.snake.iter().any(|segment| Some(*segment) == game.food));
+    assert_eq!(game.player.len(), previous_len + 1);
+    assert_ne!(game.food, Some(point(6, 4)));
+    assert!(game.food.map(|food| !snakes_occupy(&game, food)).unwrap_or(true));
+  }
+
+  #[test]
+  fn enemy_eating_food_grows_without_scoring_and_wraps() {
+    let mut rng = seeded_rng();
+    let mut game = Game::new(6, 5, &mut rng);
+
+    game.phase = Phase::Running;
+    game.player = snake(Direction::Right, [point(2, 2), point(1, 2), point(0, 2)]);
+    game.enemy = snake(Direction::Left, [point(0, 0), point(1, 0), point(2, 0)]);
+    game.food = Some(point(5, 0));
+    let previous_len = game.enemy.len();
+
+    game.step(&mut rng);
+
+    assert_eq!(game.score, 0);
+    assert_eq!(game.enemy.head(), point(5, 0));
+    assert_eq!(game.enemy.len(), previous_len + 1);
+    assert_ne!(game.food, Some(point(5, 0)));
+    assert!(game.food.map(|food| !snakes_occupy(&game, food)).unwrap_or(true));
+    assert_eq!(game.phase, Phase::Running);
+  }
+
+  #[test]
+  fn enemy_prefers_food_but_falls_back_to_a_safe_direction() {
+    let mut rng = seeded_rng();
+    let mut game = Game::new(7, 7, &mut rng);
+
+    game.phase = Phase::Running;
+    game.player = snake(Direction::Right, [point(0, 0), point(6, 0), point(5, 0)]);
+    game.enemy = snake(Direction::Right, [point(3, 3), point(3, 2), point(2, 2)]);
+    game.food = Some(point(3, 1));
+
+    game.step(&mut rng);
+
+    assert_eq!(game.enemy.head(), point(4, 3));
+    assert_eq!(game.phase, Phase::Running);
   }
 
   #[test]
@@ -362,19 +766,22 @@ mod tests {
     let mut game = Game::new(6, 6, &mut rng);
 
     game.phase = Phase::Running;
-    game.direction = Direction::Up;
-    game.snake = VecDeque::from([
-      Point { x: 2, y: 2 },
-      Point { x: 2, y: 1 },
-      Point { x: 1, y: 1 },
-      Point { x: 1, y: 2 },
-      Point { x: 1, y: 3 },
-      Point { x: 2, y: 3 },
-      Point { x: 3, y: 3 },
-      Point { x: 3, y: 2 },
-      Point { x: 3, y: 1 },
-    ]);
-    game.food = Some(Point { x: 5, y: 5 });
+    game.player = snake(
+      Direction::Up,
+      [
+        point(2, 2),
+        point(2, 1),
+        point(1, 1),
+        point(1, 2),
+        point(1, 3),
+        point(2, 3),
+        point(3, 3),
+        point(3, 2),
+        point(3, 1),
+      ],
+    );
+    game.enemy = snake(Direction::Left, [point(5, 5), point(0, 5), point(1, 5)]);
+    game.food = Some(point(4, 4));
 
     game.step(&mut rng);
 
@@ -382,24 +789,77 @@ mod tests {
   }
 
   #[test]
-  fn food_spawns_only_on_empty_cells() {
+  fn head_to_head_contact_ends_the_run() {
+    let mut rng = seeded_rng();
+    let mut game = Game::new(7, 5, &mut rng);
+
+    game.phase = Phase::Running;
+    game.player = snake(Direction::Right, [point(1, 2), point(0, 2), point(6, 2)]);
+    game.enemy = snake(Direction::Left, [point(3, 2), point(4, 2), point(5, 2)]);
+    game.food = Some(point(0, 2));
+
+    game.step(&mut rng);
+
+    assert_eq!(game.phase, Phase::GameOver);
+  }
+
+  #[test]
+  fn player_moving_into_enemy_body_ends_the_run() {
+    let mut rng = seeded_rng();
+    let mut game = Game::new(7, 7, &mut rng);
+
+    game.phase = Phase::Running;
+    game.player = snake(Direction::Right, [point(1, 3), point(0, 3), point(6, 3)]);
+    game.enemy = snake(Direction::Up, [point(2, 2), point(2, 3), point(2, 4)]);
+    game.food = Some(point(5, 5));
+
+    game.step(&mut rng);
+
+    assert_eq!(game.phase, Phase::GameOver);
+  }
+
+  #[test]
+  fn enemy_self_collision_ends_the_run_when_no_safe_fallback_exists() {
+    let mut rng = seeded_rng();
+    let mut game = Game::new(6, 6, &mut rng);
+
+    game.phase = Phase::Running;
+    game.player = snake(Direction::Right, [point(0, 5), point(5, 5), point(4, 5)]);
+    game.enemy = snake(
+      Direction::Up,
+      [
+        point(2, 2),
+        point(2, 1),
+        point(1, 1),
+        point(1, 2),
+        point(1, 3),
+        point(2, 3),
+        point(3, 3),
+        point(3, 2),
+        point(3, 1),
+      ],
+    );
+    game.food = Some(point(2, 0));
+
+    game.step(&mut rng);
+
+    assert_eq!(game.phase, Phase::GameOver);
+  }
+
+  #[test]
+  fn food_spawns_only_on_empty_cells_of_both_snakes() {
     let mut rng = seeded_rng();
     let mut game = Game::new(3, 3, &mut rng);
 
-    game.snake = VecDeque::from([
-      Point { x: 0, y: 0 },
-      Point { x: 1, y: 0 },
-      Point { x: 2, y: 0 },
-      Point { x: 0, y: 1 },
-      Point { x: 1, y: 1 },
-      Point { x: 2, y: 1 },
-      Point { x: 0, y: 2 },
-      Point { x: 1, y: 2 },
-    ]);
+    game.player = snake(
+      Direction::Right,
+      [point(0, 0), point(1, 0), point(2, 0), point(0, 1), point(1, 1)],
+    );
+    game.enemy = snake(Direction::Left, [point(2, 1), point(0, 2), point(1, 2)]);
 
     let food = game.spawn_food(&mut rng);
 
-    assert_eq!(food, Some(Point { x: 2, y: 2 }));
+    assert_eq!(food, Some(point(2, 2)));
   }
 
   #[test]
@@ -408,19 +868,17 @@ mod tests {
     let mut game = Game::new(5, 5, &mut rng);
 
     game.phase = Phase::Running;
-    game.direction = Direction::Up;
-    game.snake = VecDeque::from([
-      Point { x: 2, y: 2 },
-      Point { x: 2, y: 1 },
-      Point { x: 1, y: 1 },
-      Point { x: 1, y: 2 },
-    ]);
-    game.food = Some(Point { x: 4, y: 4 });
+    game.player = snake(
+      Direction::Up,
+      [point(2, 2), point(2, 1), point(1, 1), point(1, 2)],
+    );
+    game.enemy = snake(Direction::Left, [point(4, 4), point(3, 4), point(2, 4)]);
+    game.food = Some(point(0, 0));
 
     game.queue_turn(Direction::Left);
     game.step(&mut rng);
 
     assert_eq!(game.phase, Phase::Running);
-    assert_eq!(game.head(), Point { x: 1, y: 2 });
+    assert_eq!(game.player.head(), point(1, 2));
   }
 }

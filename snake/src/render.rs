@@ -94,6 +94,10 @@ fn board_lines(game: &Game) -> Vec<Line<'static>> {
           .bg(Color::LightGreen)
           .add_modifier(Modifier::BOLD),
         Cell::Body => Style::default().bg(Color::Green),
+        Cell::EnemyHead => Style::default()
+          .bg(Color::LightBlue)
+          .add_modifier(Modifier::BOLD),
+        Cell::EnemyBody => Style::default().bg(Color::Blue),
         Cell::Food => Style::default().bg(Color::Red).add_modifier(Modifier::BOLD),
       };
 
@@ -109,7 +113,7 @@ fn board_lines(game: &Game) -> Vec<Line<'static>> {
 fn footer_text(phase: Phase) -> &'static str {
   match phase {
     Phase::Ready => "Enter/Space start | Arrows/WASD move | Q/Esc quit",
-    Phase::Running => "Eat food | Arrows/WASD move | Q/Esc quit",
+    Phase::Running => "Eat food, avoid enemy | Arrows/WASD | Q/Esc quit",
     Phase::GameOver => "R/Enter/Space restart | Q/Esc quit",
   }
 }
