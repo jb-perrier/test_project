@@ -1,0 +1,48 @@
+{
+  "id": "ST-00002",
+  "title": "Use ratatui for the ui",
+  "currentStep": "Merge",
+  "createdAt": "2026-04-18T14:21:39.453Z",
+  "updatedAt": "2026-04-18T15:30:54.416Z",
+  "baseCommit": "58f626b49cf5a8d2a67b92254f1835561e16f83a",
+  "branchName": "story/ST-00002",
+  "targetBranchName": "main",
+  "lastImplementationCommit": "a23bce557fff39284e65a00ef8906bdd2d767f3a",
+  "reviewLoops": 0,
+  "acceptedAt": {
+    "Draft": "2026-04-18T14:30:46.283Z",
+    "Plan": "2026-04-18T14:35:19.045Z",
+    "Implementation": "2026-04-18T15:08:54.589Z",
+    "Review": "2026-04-18T15:28:37.324Z",
+    "Documentation": "2026-04-18T15:30:54.416Z"
+  },
+  "lastRunAt": {
+    "Draft": "2026-04-18T14:30:29.637Z",
+    "Plan": "2026-04-18T14:32:19.416Z",
+    "Implementation": "2026-04-18T15:07:51.829Z",
+    "Review": "2026-04-18T15:28:27.317Z",
+    "Documentation": "2026-04-18T15:29:22.066Z"
+  },
+  "reviewVerdict": "approved",
+  "reviewCoverage": "complete",
+  "reviewValidationStatus": "declared-only",
+  "reviewedHeadCommit": "a23bce557fff39284e65a00ef8906bdd2d767f3a",
+  "reviewedFiles": [
+    "snake/Cargo.lock",
+    "snake/Cargo.toml",
+    "snake/README.md",
+    "snake/src/main.rs",
+    "snake/src/render.rs"
+  ],
+  "reviewBlindSpots": [],
+  "changedFiles": [
+    "snake/Cargo.lock",
+    "snake/Cargo.toml",
+    "snake/README.md",
+    "snake/src/main.rs",
+    "snake/src/render.rs"
+  ],
+  "specFilesTouched": [
+    "doc/spec/ST-00002.md"
+  ]
+}
