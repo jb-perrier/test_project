@@ -1,0 +1,42 @@
+{
+  "id": "ST-00003",
+  "title": "Reduce UI size, increase game size",
+  "currentStep": "Merge",
+  "createdAt": "2026-04-18T16:12:45.313Z",
+  "updatedAt": "2026-04-18T17:11:18.437Z",
+  "baseCommit": "6fbee6ec4127bc2d4ff4f355718a657c09c012b5",
+  "branchName": "story/ST-00003",
+  "targetBranchName": "main",
+  "lastImplementationCommit": "a7fdabf0a83c4fc317b973a2ed489a9520a8ce7f",
+  "reviewLoops": 0,
+  "acceptedAt": {
+    "Draft": "2026-04-18T16:55:00.404Z",
+    "Plan": "2026-04-18T16:57:01.530Z",
+    "Implementation": "2026-04-18T17:01:05.469Z",
+    "Review": "2026-04-18T17:07:48.923Z",
+    "Documentation": "2026-04-18T17:11:18.437Z"
+  },
+  "lastRunAt": {
+    "Draft": "2026-04-18T16:15:28.379Z",
+    "Plan": "2026-04-18T16:56:57.763Z",
+    "Implementation": "2026-04-18T17:01:01.374Z",
+    "Review": "2026-04-18T17:07:15.254Z",
+    "Documentation": "2026-04-18T17:11:11.152Z"
+  },
+  "reviewVerdict": "approved",
+  "reviewCoverage": "complete",
+  "reviewValidationStatus": "declared-only",
+  "reviewedHeadCommit": "a7fdabf0a83c4fc317b973a2ed489a9520a8ce7f",
+  "reviewedFiles": [
+    "snake/README.md",
+    "snake/src/render.rs"
+  ],
+  "reviewBlindSpots": [],
+  "changedFiles": [
+    "snake/README.md",
+    "snake/src/render.rs"
+  ],
+  "specFilesTouched": [
+    "doc/spec/ui.md"
+  ]
+}

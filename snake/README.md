@@ -1,6 +1,6 @@
 # Snake
 
-A small standalone Rust terminal Snake game for Story `ST-00002`.
+A small standalone Rust terminal Snake game for Story `ST-00003`.
 
 ## Run
 
@@ -19,8 +19,10 @@ A small standalone Rust terminal Snake game for Story `ST-00002`.
 
 ## Notes
 
-- The UI now uses `ratatui` for a structured terminal layout and keeps `crossterm` for input handling.
-- If the terminal is too small for the board and side panel, the game shows a resize message.
+- The UI uses `ratatui` for a compact board-first terminal layout and keeps `crossterm` for input handling.
+- A single-line HUD keeps score, tick speed, and phase visible while giving more terminal space to the board.
+- The board uses larger cells, and phase-specific control guidance stays visible below the playfield.
+- If the terminal is too small for the compact layout, the game shows a resize message.
 - The board wraps at every edge.
 - Eating food increases score and snake length.
 - Tick speed increases with score until it reaches a minimum floor.
