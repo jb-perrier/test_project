@@ -1,0 +1,50 @@
+{
+  "version": 1,
+  "runId": "20260419T150749098Z-8c10061c",
+  "step": "Implementation",
+  "status": "accepted",
+  "startedAt": "2026-04-19T15:07:49.098Z",
+  "completedAt": "2026-04-19T15:14:15.098Z",
+  "modelLabel": "copilot/gpt-5.4",
+  "promptHash": "ebd2c9cd41e3cd03df9c155f6678b975a7e4c54f72d7453dfcba7e30e4faf2b5",
+  "artifactHash": "2585debbfdd58b8ad4e04d593ad1a808198cbebee12d22f41bdbc26f1d4dde38",
+  "repairAttempts": 0,
+  "storyId": "ST-00006",
+  "storyTitle": "Decrease a bit the IA difficulty",
+  "storyStepAtStart": "Implementation",
+  "storyStepAtEnd": "Implementation",
+  "storyBaseCommit": "19cf560d7a3a91cc4656977b5aa721f977d3fe3c",
+  "storyBranchName": "story/ST-00006",
+  "storyTargetBranchName": "main",
+  "storyImplementationCommit": "8f1cefcc958f7289fe8d3dde21af82fd3cfea2ec",
+  "storyChangedPaths": [
+    "snake/src/game.rs"
+  ],
+  "storySpecPaths": [],
+  "outputPaths": [
+    "doc/story/ST-00006/Implementation.md",
+    "snake/src/game.rs"
+  ],
+  "promptPath": "history/Implementation/20260419T150749098Z-8c10061c/prompt.md",
+  "artifactPath": "history/Implementation/20260419T150749098Z-8c10061c/artifact.md",
+  "tracePath": "history/Implementation/20260419T150749098Z-8c10061c/trace.log",
+  "parsedArtifact": {
+    "executionSummary": "- Updated `snake/src/game.rs` to remove the out-of-scope adjacent-food penalty added in the prior pass.\n- Kept the alternate-tick enemy replan cadence and skipped-tick safe fallback behavior intact.\n- Restored replan ticks to the existing safe food-seeking preference and replaced the prior anti-orbit regression with a scope-aligned test.",
+    "filesChanged": [
+      "`snake/src/game.rs`",
+      "Removed `ENEMY_MISSED_ADJACENT_FOOD_PENALTY`.",
+      "Removed `enemy_would_miss_adjacent_food(...)` and its scoring branch from `score_enemy_move(...)`.",
+      "Added `enemy_replan_tick_still_prefers_the_safe_turn_that_closes_food_distance` to confirm replan ticks still choose the safe move that closes food distance."
+    ],
+    "validationCommands": [
+      "`cargo test --manifest-path snake/Cargo.toml` — not run in this step; no command-execution tool was available.",
+      "`cargo run --manifest-path snake/Cargo.toml` — not run in this step; no command-execution tool was available."
+    ],
+    "notes": [
+      "Documentation follow-up remains for `snake/README.md` and `doc/spec/gameplay.md`.",
+      "`doc/spec/overview.md` may also need a later update if the broader Snake summary mentions enemy behavior.",
+      "No documentation files were edited in this implementation step."
+    ]
+  },
+  "acceptedAt": "2026-04-19T15:17:31.975Z"
+}

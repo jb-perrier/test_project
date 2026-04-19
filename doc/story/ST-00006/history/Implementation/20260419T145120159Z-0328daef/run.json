@@ -1,0 +1,51 @@
+{
+  "version": 1,
+  "runId": "20260419T145120159Z-0328daef",
+  "step": "Implementation",
+  "status": "accepted",
+  "startedAt": "2026-04-19T14:51:20.159Z",
+  "completedAt": "2026-04-19T15:00:05.993Z",
+  "modelLabel": "copilot/gpt-5.4",
+  "promptHash": "9694024d0ef03fcd5a25ec63e248633d7ab4c21fa7edb09816fa32bdb8518c42",
+  "artifactHash": "779f0b685147af2311c77171f4c78e922b8e2bc1d11fc5c8818f8fc6e7d61fe1",
+  "repairAttempts": 0,
+  "storyId": "ST-00006",
+  "storyTitle": "Decrease a bit the IA difficulty",
+  "storyStepAtStart": "Implementation",
+  "storyStepAtEnd": "Implementation",
+  "storyBaseCommit": "19cf560d7a3a91cc4656977b5aa721f977d3fe3c",
+  "storyBranchName": "story/ST-00006",
+  "storyTargetBranchName": "main",
+  "storyImplementationCommit": "875955c5ab7ac0b8f8b795315b57460ce36fdbe2",
+  "storyChangedPaths": [
+    "snake/src/game.rs"
+  ],
+  "storySpecPaths": [],
+  "outputPaths": [
+    "doc/story/ST-00006/Implementation.md",
+    "snake/src/game.rs"
+  ],
+  "promptPath": "history/Implementation/20260419T145120159Z-0328daef/prompt.md",
+  "artifactPath": "history/Implementation/20260419T145120159Z-0328daef/artifact.md",
+  "tracePath": "history/Implementation/20260419T145120159Z-0328daef/trace.log",
+  "parsedArtifact": {
+    "executionSummary": "- Updated `snake/src/game.rs` to keep the alternate-tick enemy slowdown while reducing the food-orbiting behavior.\n- Added a scoring penalty for replan turns that leave food adjacent and likely missed on the next carried tick, so the enemy is less likely to circle around food.\n- Kept the skipped-tick safe fallback behavior and added a focused regression test for the anti-orbit case.",
+    "filesChanged": [
+      "`snake/src/game.rs`",
+      "Added `ENEMY_MISSED_ADJACENT_FOOD_PENALTY`.",
+      "Added `enemy_would_miss_adjacent_food(...)` and applied it in `score_enemy_move(...)`.",
+      "Added `enemy_avoids_turning_beside_food_when_a_skipped_tick_would_pass_it` coverage."
+    ],
+    "validationCommands": [
+      "Not run in this step.",
+      "`cargo test --manifest-path snake/Cargo.toml`",
+      "`cargo run --manifest-path snake/Cargo.toml`"
+    ],
+    "notes": [
+      "Documentation was not edited in this step because implementation scope stayed limited to `snake/src/game.rs`.",
+      "Follow-up remains for `snake/README.md` and `doc/spec/gameplay.md`.",
+      "`doc/spec/overview.md` may also need a later update if the broader Snake summary should mention the softer enemy cadence."
+    ]
+  },
+  "acceptedAt": "2026-04-19T15:01:50.820Z"
+}

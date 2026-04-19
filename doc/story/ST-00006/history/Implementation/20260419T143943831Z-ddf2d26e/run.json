@@ -1,0 +1,49 @@
+{
+  "version": 1,
+  "runId": "20260419T143943831Z-ddf2d26e",
+  "step": "Implementation",
+  "status": "completed",
+  "startedAt": "2026-04-19T14:39:43.831Z",
+  "completedAt": "2026-04-19T14:50:05.112Z",
+  "modelLabel": "copilot/gpt-5.4",
+  "promptHash": "40297dd112c469e2b975b9aaedf1c7e841be2bdabf77b753af9a6e4ce750dbea",
+  "artifactHash": "ecb0b168441d7b967fc895ec76f5735c80cbbc291683cc14b539001fdfbd85d9",
+  "repairAttempts": 0,
+  "storyId": "ST-00006",
+  "storyTitle": "Decrease a bit the IA difficulty",
+  "storyStepAtStart": "Implementation",
+  "storyStepAtEnd": "Implementation",
+  "storyBaseCommit": "19cf560d7a3a91cc4656977b5aa721f977d3fe3c",
+  "storyBranchName": "story/ST-00006",
+  "storyTargetBranchName": "main",
+  "storyImplementationCommit": "394162269c99356437021e232194ec87d58758c5",
+  "storyChangedPaths": [
+    "snake/src/game.rs"
+  ],
+  "storySpecPaths": [],
+  "outputPaths": [
+    "doc/story/ST-00006/Implementation.md",
+    "snake/src/game.rs"
+  ],
+  "promptPath": "history/Implementation/20260419T143943831Z-ddf2d26e/prompt.md",
+  "artifactPath": "history/Implementation/20260419T143943831Z-ddf2d26e/artifact.md",
+  "tracePath": "history/Implementation/20260419T143943831Z-ddf2d26e/trace.log",
+  "parsedArtifact": {
+    "executionSummary": "- Softened the Snake enemy AI in `snake/src/game.rs` by adding an alternate-tick replan cadence.\n- The enemy now performs a fresh food-seeking choice on the first running tick and then every other tick after that.\n- On skipped ticks, the enemy keeps its current direction when safe; if that direction is unsafe, it now takes a safe fallback when available.\n- Added focused unit tests for cadence reset, alternate-tick behavior, skipped-tick fallback, and unavoidable-crash handling.",
+    "filesChanged": [
+      "`snake/src/game.rs`",
+      "Added `enemy_replans_next_tick` state plus reset/toggle helpers.",
+      "Refactored enemy direction selection into replan and carry-direction paths.",
+      "Added coverage for the reduced-difficulty behavior in unit tests."
+    ],
+    "validationCommands": [
+      "Not run in this step.",
+      "`cargo test --manifest-path snake/Cargo.toml`",
+      "`cargo run --manifest-path snake/Cargo.toml`"
+    ],
+    "notes": [
+      "Documentation follow-up remains for `snake/README.md` and `doc/spec/gameplay.md`.",
+      "`doc/spec/overview.md` may also need a follow-up if the broader Snake summary should mention the softer enemy cadence."
+    ]
+  }
+}

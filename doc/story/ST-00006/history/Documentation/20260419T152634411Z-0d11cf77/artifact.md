@@ -1,3 +1,13 @@
+# Spec Update
+
+## Target Spec File
+doc/spec/gameplay.md
+
+## Change Summary
+- Records the Snake enemy as a slightly softened competitor: it still moves every running tick and chases the shared food, but full steering replans now happen on the first running tick and then every other tick.
+- Specifies skipped-tick behavior: keep the carried direction when safe, switch to a safe fallback when needed, and otherwise leave wraparound, scoring, growth, collisions, controls, and tick-speed progression unchanged.
+
+## Canonical Spec
 # Snake Gameplay Specification
 
 ## Scope
