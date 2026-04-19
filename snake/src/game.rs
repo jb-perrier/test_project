@@ -691,6 +691,44 @@ mod tests {
     game.choose_enemy_direction(player_direction, &mut rng)
   }
 
+  fn near_best_enemy_choices(game: &Game, player_direction: Direction) -> Vec<Direction> {
+    let player_next_head = game.advance(game.player.head(), player_direction);
+    let player_grows = game.food == Some(player_next_head);
+    let mut safe_moves = Vec::with_capacity(4);
+
+    for direction in game.enemy_move_candidates() {
+      let enemy_next_head = game.advance(game.enemy.head(), direction);
+      let enemy_grows = game.food == Some(enemy_next_head);
+
+      if game.move_is_fatal(player_next_head, enemy_next_head, player_grows, enemy_grows) {
+        continue;
+      }
+
+      safe_moves.push(EnemyMove {
+        direction,
+        score: game.score_enemy_move(
+          player_next_head,
+          player_grows,
+          direction,
+          enemy_next_head,
+          enemy_grows,
+        ),
+      });
+    }
+
+    let best_score = safe_moves
+      .iter()
+      .map(|candidate| candidate.score)
+      .max()
+      .expect("tie-break fixture should have safe moves");
+
+    safe_moves
+      .into_iter()
+      .filter(|candidate| candidate.score + ENEMY_NEAR_BEST_BAND >= best_score)
+      .map(|candidate| candidate.direction)
+      .collect()
+  }
+
   fn tie_break_game() -> Game {
     let mut rng = seeded_rng();
     let mut game = Game::new(7, 7, &mut rng);
@@ -698,7 +736,7 @@ mod tests {
     game.phase = Phase::Running;
     game.player = snake(
       Direction::Right,
-      [point(6, 6), point(5, 6), point(4, 6), point(3, 2)],
+      [point(6, 6), point(5, 6), point(3, 2), point(4, 6)],
     );
     game.enemy = snake(Direction::Up, [point(3, 3), point(3, 4), point(2, 4)]);
     game.food = Some(point(3, 5));
@@ -900,23 +938,15 @@ mod tests {
   #[test]
   fn seeded_rng_makes_enemy_tie_breaking_reproducible() {
     let game = tie_break_game();
+    let near_best = near_best_enemy_choices(&game, Direction::Right);
     let first = enemy_choice(&game, Direction::Right, 11);
     let second = enemy_choice(&game, Direction::Right, 11);
-    let mut saw_left = false;
-    let mut saw_right = false;
+    let other_seed_choice = enemy_choice(&game, Direction::Right, 12);
 
-    for seed in 0..32 {
-      match enemy_choice(&game, Direction::Right, seed) {
-        Direction::Left => saw_left = true,
-        Direction::Right => saw_right = true,
-        direction => panic!("unexpected direction {:?}", direction),
-      }
-    }
-
+    assert_eq!(near_best, vec![Direction::Left, Direction::Right]);
     assert_eq!(first, second);
-    assert!(matches!(first, Direction::Left | Direction::Right));
-    assert!(saw_left);
-    assert!(saw_right);
+    assert!(near_best.contains(&first));
+    assert!(near_best.contains(&other_seed_choice));
   }
 
   #[test]
