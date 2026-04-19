@@ -270,7 +270,8 @@ impl Game {
     let mut direction = self.player.direction;
 
     if let Some(next_direction) = self.player.pending_direction.take() {
-      if next_direction != self.player.direction && !next_direction.is_opposite(self.player.direction)
+      if next_direction != self.player.direction
+        && !next_direction.is_opposite(self.player.direction)
       {
         direction = next_direction;
       }
@@ -279,7 +280,11 @@ impl Game {
     direction
   }
 
-  fn choose_enemy_direction(&self, player_direction: Direction, rng: &mut impl Rng) -> Direction {
+  fn choose_enemy_direction(
+    &self,
+    player_direction: Direction,
+    rng: &mut impl Rng,
+  ) -> Direction {
     let player_next_head = self.advance(self.player.head(), player_direction);
     let player_grows = self.food == Some(player_next_head);
     let mut safe_moves = Vec::with_capacity(4);
@@ -390,7 +395,9 @@ impl Game {
 
   fn food_distance_delta(&self, from: Point, to: Point) -> i32 {
     match self.food {
-      Some(food) => self.wrapped_distance_score(from, food) - self.wrapped_distance_score(to, food),
+      Some(food) => {
+        self.wrapped_distance_score(from, food) - self.wrapped_distance_score(to, food)
+      }
       None => 0,
     }
   }
@@ -403,8 +410,10 @@ impl Game {
     direction: Direction,
     enemy_grows: bool,
   ) -> usize {
-    let player_after_move = Self::snake_segments_after_move(&self.player, player_next_head, player_grows);
-    let enemy_after_move = Self::snake_segments_after_move(&self.enemy, enemy_next_head, enemy_grows);
+    let player_after_move =
+      Self::snake_segments_after_move(&self.player, player_next_head, player_grows);
+    let enemy_after_move =
+      Self::snake_segments_after_move(&self.enemy, enemy_next_head, enemy_grows);
 
     Self::legal_directions(direction, enemy_after_move.len())
       .into_iter()
@@ -842,6 +851,19 @@ mod tests {
     );
     game.enemy = snake(Direction::Right, [point(3, 3), point(2, 3), point(1, 3)]);
     game.food = Some(point(3, 0));
+
+    assert_eq!(enemy_choice(&game, Direction::Right, 7), Direction::Right);
+  }
+
+  #[test]
+  fn enemy_can_keep_moving_straight_when_straight_also_closes_food_distance() {
+    let mut rng = seeded_rng();
+    let mut game = Game::new(7, 7, &mut rng);
+
+    game.phase = Phase::Running;
+    game.player = snake(Direction::Right, [point(6, 6), point(5, 6), point(4, 6)]);
+    game.enemy = snake(Direction::Right, [point(3, 3), point(2, 3), point(1, 3)]);
+    game.food = Some(point(5, 2));
 
     assert_eq!(enemy_choice(&game, Direction::Right, 7), Direction::Right);
   }
