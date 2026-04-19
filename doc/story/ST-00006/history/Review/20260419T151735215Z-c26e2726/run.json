@@ -1,0 +1,42 @@
+{
+  "version": 1,
+  "runId": "20260419T151735215Z-c26e2726",
+  "step": "Review",
+  "status": "accepted",
+  "startedAt": "2026-04-19T15:17:35.215Z",
+  "completedAt": "2026-04-19T15:24:55.298Z",
+  "modelLabel": "copilot/gpt-5.4",
+  "promptHash": "7c6aebdeec54e334e843287b71253d18d7ac5cccc861e504013fd116d744c6b9",
+  "artifactHash": "b6e2651ecf778341f8686f1bc0f07014c30e2840a3f8099001996a166ba1d776",
+  "repairAttempts": 0,
+  "storyId": "ST-00006",
+  "storyTitle": "Decrease a bit the IA difficulty",
+  "storyStepAtStart": "Review",
+  "storyStepAtEnd": "Review",
+  "storyBaseCommit": "19cf560d7a3a91cc4656977b5aa721f977d3fe3c",
+  "storyBranchName": "story/ST-00006",
+  "storyTargetBranchName": "main",
+  "storyImplementationCommit": "8f1cefcc958f7289fe8d3dde21af82fd3cfea2ec",
+  "storyChangedPaths": [
+    "snake/src/game.rs"
+  ],
+  "storySpecPaths": [],
+  "outputPaths": [
+    "doc/story/ST-00006/Review.md"
+  ],
+  "promptPath": "history/Review/20260419T151735215Z-c26e2726/prompt.md",
+  "artifactPath": "history/Review/20260419T151735215Z-c26e2726/artifact.md",
+  "tracePath": "history/Review/20260419T151735215Z-c26e2726/trace.log",
+  "reviewManifestPath": "history/Review/20260419T151735215Z-c26e2726/review-manifest.json",
+  "parsedArtifact": {
+    "verdict": "approved",
+    "coverage": "complete",
+    "validationStatus": "declared-only",
+    "reviewedHeadCommit": "8f1cefcc958f7289fe8d3dde21af82fd3cfea2ec",
+    "reviewedFiles": [
+      "snake/src/game.rs"
+    ],
+    "blindSpots": []
+  },
+  "acceptedAt": "2026-04-19T15:26:31.371Z"
+}

@@ -1,0 +1,55 @@
+{
+  "version": 1,
+  "runId": "20260419T143552142Z-84a9c106",
+  "step": "Plan",
+  "status": "accepted",
+  "startedAt": "2026-04-19T14:35:52.142Z",
+  "completedAt": "2026-04-19T14:37:57.473Z",
+  "modelLabel": "copilot/gpt-5.4",
+  "promptHash": "9f592b21846e3bd75eee9172aa98b95651bc45e2d59d3723b54e219bc58add5e",
+  "artifactHash": "7a3a767632e3665487e06a6cd8e5e3f8d32aeb25e6abd1c1d9e7ae31a72e06ab",
+  "repairAttempts": 0,
+  "storyId": "ST-00006",
+  "storyTitle": "Decrease a bit the IA difficulty",
+  "storyStepAtStart": "Plan",
+  "storyStepAtEnd": "Plan",
+  "storyBaseCommit": "19cf560d7a3a91cc4656977b5aa721f977d3fe3c",
+  "storyBranchName": "story/ST-00006",
+  "storyTargetBranchName": "main",
+  "storyChangedPaths": [],
+  "storySpecPaths": [],
+  "outputPaths": [
+    "doc/story/ST-00006/Plan.md"
+  ],
+  "promptPath": "history/Plan/20260419T143552142Z-84a9c106/prompt.md",
+  "artifactPath": "history/Plan/20260419T143552142Z-84a9c106/artifact.md",
+  "tracePath": "history/Plan/20260419T143552142Z-84a9c106/trace.log",
+  "parsedArtifact": {
+    "summary": "- Soften the Snake enemy AI only in `snake/src/game.rs` by reducing how often it performs a fresh food-seeking replan.\n- Keep the enemy moving every running tick, but make full steering recalculation happen on the first running tick and then every other tick.\n- Preserve current wraparound, food, growth, collision, score, tick-speed, input, and rendering behavior; no UI or config changes are expected.",
+    "findings": [
+      "`snake/src/game.rs` appears to own tick progression, enemy steering, growth, collisions, and scoring, so the rebalance can stay localized there.",
+      "The existing enemy logic already looks deterministic and weighted toward safe food pursuit, which makes cadence control a smaller change than retuning many AI weights or adding randomness.",
+      "`snake/README.md` and `doc/spec/gameplay.md` currently describe the more aggressive enemy behavior; they should be updated in a later Documentation step. `doc/spec/overview.md` only needs follow-up if the broad summary should mention the softer AI."
+    ],
+    "affectedFiles": [
+      "`snake/src/game.rs`"
+    ],
+    "implementationApproach": "- Add a small enemy replan cadence field to `Game` and reset it in new-game, start, and restart paths so the first actual running movement tick is always a replan tick.\n- Split enemy direction selection into two paths:\n  - replan ticks: reuse the current safe food-seeking ranking;\n  - skipped ticks: keep the carried direction if it is safe, otherwise pick another safe direction if one exists, and otherwise preserve the existing unavoidable-crash outcome.\n- Leave the rest of `step()` intact so both snakes still move every gameplay tick and enemy food still only affects enemy growth and food respawn, not player score or tick speed.\n- Add or adjust focused unit tests in `snake/src/game.rs`, using direct state setup where needed to avoid RNG-dependent assertions.",
+    "risks": [
+      "Off-by-one handling around `Ready` to `Running` or `restart` could make the first running tick skip replanning.",
+      "If skipped ticks still reuse the full food-seeking chooser, the difficulty drop may be too small; if safety checks are rewritten too broadly, collision behavior could change unintentionally.",
+      "Documentation will remain stale until the later Documentation step updates the Snake behavior description."
+    ],
+    "validation": [
+      "Run `cargo test --manifest-path snake/Cargo.toml`.",
+      "Manually run `cargo run --manifest-path snake/Cargo.toml` and verify:",
+      "the enemy still advances every running tick;",
+      "it replans on the first running tick and then every other tick;",
+      "it keeps its current direction on intervening ticks when safe;",
+      "it still takes a safe fallback when its carried direction becomes unsafe;",
+      "enemy food consumption still grows the enemy without increasing player score or speeding up the game.",
+      "Later Documentation work should update `snake/README.md` and `doc/spec/gameplay.md`, with `doc/spec/overview.md` only if the higher-level summary should mention the new enemy cadence."
+    ]
+  },
+  "acceptedAt": "2026-04-19T14:39:15.571Z"
+}

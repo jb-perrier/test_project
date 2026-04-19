@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "runId": "20260419T153136415Z-58261486",
+  "step": "Merge",
+  "status": "prepared",
+  "startedAt": "2026-04-19T15:31:36.415Z",
+  "repairAttempts": 0,
+  "storyId": "ST-00006",
+  "storyTitle": "Decrease a bit the IA difficulty",
+  "storyStepAtStart": "Merge",
+  "storyBaseCommit": "19cf560d7a3a91cc4656977b5aa721f977d3fe3c",
+  "storyBranchName": "story/ST-00006",
+  "storyTargetBranchName": "main",
+  "storyImplementationCommit": "8f1cefcc958f7289fe8d3dde21af82fd3cfea2ec",
+  "storyChangedPaths": [
+    "snake/src/game.rs"
+  ],
+  "storySpecPaths": [
+    "doc/spec/gameplay.md"
+  ],
+  "outputPaths": [],
+  "tracePath": "history/Merge/20260419T153136415Z-58261486/trace.log"
+}

@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "runId": "20260419T143248528Z-c5ff30e1",
+  "step": "Draft",
+  "status": "accepted",
+  "startedAt": "2026-04-19T14:32:48.528Z",
+  "completedAt": "2026-04-19T14:34:52.331Z",
+  "modelLabel": "copilot/gpt-5.4",
+  "promptHash": "53fa76c2bea9c15e00513d489aff8e5e0959d0a51db121608489c51ad59a2f97",
+  "artifactHash": "c92e5737aa69d096d9eb0407b6b1933ac13b4ac8614371dd086face24440e959",
+  "repairAttempts": 0,
+  "storyId": "ST-00006",
+  "storyTitle": "Decrease a bit the IA difficulty",
+  "storyStepAtStart": "Draft",
+  "storyStepAtEnd": "Draft",
+  "storyBaseCommit": "19cf560d7a3a91cc4656977b5aa721f977d3fe3c",
+  "storyBranchName": "story/ST-00006",
+  "storyTargetBranchName": "main",
+  "storyChangedPaths": [],
+  "storySpecPaths": [],
+  "outputPaths": [
+    "doc/story/ST-00006/Draft.md"
+  ],
+  "promptPath": "history/Draft/20260419T143248528Z-c5ff30e1/prompt.md",
+  "artifactPath": "history/Draft/20260419T143248528Z-c5ff30e1/artifact.md",
+  "tracePath": "history/Draft/20260419T143248528Z-c5ff30e1/trace.log",
+  "acceptedAt": "2026-04-19T14:35:50.210Z"
+}
