@@ -881,15 +881,38 @@ mod tests {
       [
         point(6, 6),
         point(5, 6),
-        point(4, 6),
+        point(3, 4),
         point(4, 2),
         point(3, 1),
         point(2, 2),
+        point(1, 2),
+        point(1, 1),
       ],
     );
     game.enemy = snake(Direction::Right, [point(3, 3), point(2, 3), point(1, 3)]);
     game.food = Some(point(3, 0));
 
+    let player_next_head = game.advance(game.player.head(), Direction::Right);
+    let player_grows = game.food == Some(player_next_head);
+    let upward_head = game.advance(game.enemy.head(), Direction::Up);
+    let upward_grows = game.food == Some(upward_head);
+
+    assert!(!game.move_is_fatal(
+      player_next_head,
+      upward_head,
+      player_grows,
+      upward_grows,
+    ));
+    assert_eq!(
+      game.enemy_follow_up_options(
+        player_next_head,
+        player_grows,
+        upward_head,
+        Direction::Up,
+        upward_grows,
+      ),
+      0
+    );
     assert_eq!(enemy_choice(&game, Direction::Right, 7), Direction::Right);
   }
 
@@ -982,6 +1005,7 @@ mod tests {
     game.enemy = snake(Direction::Left, [point(5, 5), point(0, 5), point(1, 5)]);
     game.food = Some(point(4, 4));
 
+    game.queue_turn(Direction::Left);
     game.step(&mut rng);
 
     assert_eq!(game.phase, Phase::GameOver);
