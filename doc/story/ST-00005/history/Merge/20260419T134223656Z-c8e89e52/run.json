@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "runId": "20260419T134223656Z-c8e89e52",
+  "step": "Merge",
+  "status": "prepared",
+  "startedAt": "2026-04-19T13:42:23.656Z",
+  "repairAttempts": 0,
+  "storyId": "ST-00005",
+  "storyTitle": "Make the IA looks more human",
+  "storyStepAtStart": "Merge",
+  "storyBaseCommit": "23c566accbbfee92c374763b3407f53e59392af3",
+  "storyBranchName": "story/ST-00005",
+  "storyTargetBranchName": "main",
+  "storyImplementationCommit": "ca4a3638162d1cc21d81410e71d37f74a32f50fa",
+  "storyChangedPaths": [
+    "snake/src/game.rs"
+  ],
+  "storySpecPaths": [
+    "doc/spec/gameplay.md"
+  ],
+  "outputPaths": [],
+  "tracePath": "history/Merge/20260419T134223656Z-c8e89e52/trace.log"
+}

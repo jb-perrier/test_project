@@ -1,10 +1,10 @@
 {
   "version": 1,
-  "runId": "20260419T122535701Z-dec97330",
+  "runId": "20260419T123204848Z-ae2f469c",
   "step": "Merge",
   "status": "failed",
-  "startedAt": "2026-04-19T12:25:35.701Z",
-  "completedAt": "2026-04-19T12:25:36.295Z",
+  "startedAt": "2026-04-19T12:32:04.848Z",
+  "completedAt": "2026-04-19T12:32:05.056Z",
   "repairAttempts": 0,
   "storyId": "ST-00005",
   "storyTitle": "Make the IA looks more human",
@@ -21,6 +21,6 @@
     "doc/spec/gameplay.md"
   ],
   "outputPaths": [],
-  "tracePath": "history/Merge/20260419T122535701Z-dec97330/trace.log",
-  "errorMessage": "Command failed: git switch main\nerror: Your local changes to the following files would be overwritten by checkout:\n\tdoc/story/ST-00005/history/Merge/20260419T122535701Z-dec97330/trace.log\nPlease commit your changes or stash them before you switch branches.\nAborting\n"
+  "tracePath": "history/Merge/20260419T123204848Z-ae2f469c/trace.log",
+  "errorMessage": "Story ST-00005 cannot merge because the current HEAD commit c0787e1608e6580c507052d6abc6c7af191080b8 does not match the accepted reviewed head commit 297212e6a5c9bed076e1825899937776ee169dfc. Rerun Review and accept it again before Merge."
 }
