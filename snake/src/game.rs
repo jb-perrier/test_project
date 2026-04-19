@@ -131,6 +131,7 @@ pub struct Game {
   food: Option<Point>,
   score: u32,
   phase: Phase,
+  enemy_replans_next_tick: bool,
 }
 
 impl Game {
@@ -146,6 +147,7 @@ impl Game {
       food: None,
       score: 0,
       phase: Phase::Ready,
+      enemy_replans_next_tick: true,
     };
 
     game.reset(rng);
@@ -160,17 +162,20 @@ impl Game {
     self.score = 0;
     self.phase = Phase::Ready;
     self.food = self.spawn_food(rng);
+    self.reset_enemy_replan_cadence();
   }
 
   pub fn start(&mut self) {
     if self.phase == Phase::Ready {
       self.phase = Phase::Running;
+      self.reset_enemy_replan_cadence();
     }
   }
 
   pub fn restart(&mut self, rng: &mut impl Rng) {
     self.reset(rng);
     self.phase = Phase::Running;
+    self.reset_enemy_replan_cadence();
   }
 
   pub fn queue_turn(&mut self, direction: Direction) {
@@ -192,6 +197,7 @@ impl Game {
 
     let player_direction = self.resolve_player_direction();
     let enemy_direction = self.choose_enemy_direction(player_direction, rng);
+    self.advance_enemy_replan_cadence();
     let player_next_head = self.advance(self.player.head(), player_direction);
     let enemy_next_head = self.advance(self.enemy.head(), enemy_direction);
     let player_grows = self.food == Some(player_next_head);
@@ -266,6 +272,14 @@ impl Game {
     Cell::Empty
   }
 
+  fn reset_enemy_replan_cadence(&mut self) {
+    self.enemy_replans_next_tick = true;
+  }
+
+  fn advance_enemy_replan_cadence(&mut self) {
+    self.enemy_replans_next_tick = !self.enemy_replans_next_tick;
+  }
+
   fn resolve_player_direction(&mut self) -> Direction {
     let mut direction = self.player.direction;
 
@@ -287,15 +301,21 @@ impl Game {
   ) -> Direction {
     let player_next_head = self.advance(self.player.head(), player_direction);
     let player_grows = self.food == Some(player_next_head);
-    let mut safe_moves = Vec::with_capacity(4);
+    let safe_directions = self.enemy_safe_directions(player_next_head, player_grows);
 
-    for direction in self.enemy_move_candidates() {
+    if safe_directions.is_empty() {
+      return self.enemy.direction;
+    }
+
+    if !self.enemy_replans_next_tick {
+      return self.choose_carried_enemy_direction_or_safe_fallback(&safe_directions);
+    }
+
+    let mut safe_moves = Vec::with_capacity(safe_directions.len());
+
+    for direction in safe_directions {
       let enemy_next_head = self.advance(self.enemy.head(), direction);
       let enemy_grows = self.food == Some(enemy_next_head);
-
-      if self.move_is_fatal(player_next_head, enemy_next_head, player_grows, enemy_grows) {
-        continue;
-      }
 
       safe_moves.push(EnemyMove {
         direction,
@@ -309,15 +329,12 @@ impl Game {
       });
     }
 
-    if safe_moves.is_empty() {
-      return self.enemy.direction;
-    }
-
     let best_score = safe_moves
       .iter()
       .map(|candidate| candidate.score)
       .max()
       .expect("safe_moves is not empty");
+
     let near_best: Vec<Direction> = safe_moves
       .iter()
       .filter(|candidate| candidate.score + ENEMY_NEAR_BEST_BAND >= best_score)
@@ -330,6 +347,38 @@ impl Game {
       let index = rng.gen_range(0..near_best.len());
       near_best[index]
     }
+  }
+
+  fn choose_carried_enemy_direction_or_safe_fallback(
+    &self,
+    safe_directions: &[Direction],
+  ) -> Direction {
+    if safe_directions.contains(&self.enemy.direction) {
+      self.enemy.direction
+    } else {
+      safe_directions[0]
+    }
+  }
+
+  fn enemy_safe_directions(
+    &self,
+    player_next_head: Point,
+    player_grows: bool,
+  ) -> Vec<Direction> {
+    let mut safe_directions = Vec::with_capacity(4);
+
+    for direction in self.enemy_move_candidates() {
+      let enemy_next_head = self.advance(self.enemy.head(), direction);
+      let enemy_grows = self.food == Some(enemy_next_head);
+
+      if self.move_is_fatal(player_next_head, enemy_next_head, player_grows, enemy_grows) {
+        continue;
+      }
+
+      safe_directions.push(direction);
+    }
+
+    safe_directions
   }
 
   fn score_enemy_move(
@@ -761,6 +810,7 @@ mod tests {
     game.score = 4;
     game.player.pending_direction = Some(Direction::Up);
     game.enemy.pending_direction = Some(Direction::Down);
+    game.enemy_replans_next_tick = false;
     game.reset(&mut rng);
 
     assert_eq!(game.phase, Phase::Ready);
@@ -773,12 +823,26 @@ mod tests {
     );
     assert_eq!(game.enemy.direction, Direction::Left);
     assert_eq!(game.enemy.pending_direction, None);
+    assert!(game.enemy_replans_next_tick);
     assert_eq!(
       game.enemy.segments,
       VecDeque::from([point(0, 0), point(1, 0), point(2, 0)])
     );
     assert!(game.food.is_some());
     assert!(!snakes_occupy(&game, game.food.unwrap()));
+  }
+
+  #[test]
+  fn restart_resets_enemy_replan_cadence_for_the_next_tick() {
+    let mut rng = seeded_rng();
+    let mut game = Game::new(10, 8, &mut rng);
+
+    game.phase = Phase::GameOver;
+    game.enemy_replans_next_tick = false;
+    game.restart(&mut rng);
+
+    assert_eq!(game.phase, Phase::Running);
+    assert!(game.enemy_replans_next_tick);
   }
 
   #[test]
@@ -868,6 +932,70 @@ mod tests {
     assert_ne!(game.food, Some(point(5, 0)));
     assert!(game.food.map(|food| !snakes_occupy(&game, food)).unwrap_or(true));
     assert_eq!(game.phase, Phase::Running);
+  }
+
+  #[test]
+  fn enemy_replans_on_first_running_tick_then_every_other_tick() {
+    let mut rng = seeded_rng();
+    let mut game = Game::new(7, 7, &mut rng);
+
+    game.player = snake(Direction::Right, [point(6, 6), point(5, 6), point(4, 6)]);
+    game.enemy = snake(Direction::Right, [point(3, 3), point(2, 3), point(1, 3)]);
+    game.food = Some(point(1, 2));
+    game.enemy_replans_next_tick = false;
+
+    game.start();
+
+    assert_eq!(game.phase, Phase::Running);
+    assert!(game.enemy_replans_next_tick);
+
+    game.step(&mut rng);
+
+    assert_eq!(game.enemy.direction, Direction::Up);
+    assert_eq!(game.enemy.head(), point(3, 2));
+    assert!(!game.enemy_replans_next_tick);
+
+    game.step(&mut rng);
+
+    assert_eq!(game.enemy.direction, Direction::Up);
+    assert_eq!(game.enemy.head(), point(3, 1));
+    assert!(game.enemy_replans_next_tick);
+
+    game.step(&mut rng);
+
+    assert_eq!(game.enemy.direction, Direction::Left);
+    assert_eq!(game.enemy.head(), point(2, 1));
+    assert_eq!(game.phase, Phase::Running);
+    assert!(!game.enemy_replans_next_tick);
+  }
+
+  #[test]
+  fn enemy_uses_safe_fallback_on_skipped_ticks_when_straight_becomes_unsafe() {
+    let mut rng = seeded_rng();
+    let mut game = Game::new(6, 6, &mut rng);
+
+    game.phase = Phase::Running;
+    game.player = snake(Direction::Right, [point(5, 5), point(4, 5), point(3, 5)]);
+    game.enemy = snake(
+      Direction::Up,
+      [
+        point(2, 2),
+        point(2, 1),
+        point(1, 1),
+        point(1, 2),
+        point(1, 3),
+        point(2, 3),
+      ],
+    );
+    game.food = Some(point(0, 0));
+    game.enemy_replans_next_tick = false;
+
+    game.step(&mut rng);
+
+    assert_eq!(game.enemy.direction, Direction::Right);
+    assert_eq!(game.enemy.head(), point(3, 2));
+    assert_eq!(game.phase, Phase::Running);
+    assert!(game.enemy_replans_next_tick);
   }
 
   #[test]
@@ -1063,6 +1191,7 @@ mod tests {
       ],
     );
     game.food = Some(point(2, 0));
+    game.enemy_replans_next_tick = false;
 
     game.step(&mut rng);
 
