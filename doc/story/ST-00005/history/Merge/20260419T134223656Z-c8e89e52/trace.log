@@ -4,3 +4,5 @@
 [13:42:23] ST-00005 Merge | Preparing merge: Verifying that Merge still matches the accepted Review head commit.
 [13:42:23] ST-00005 Merge | Preparing merge: Writing Merge.md with the prepared merge state.
 [13:42:23] ST-00005 Merge | Preparing merge: Committing story artifacts before merging branches.
+[13:42:24] ST-00005 Merge | Recording merge: Writing final merge metadata to Merge.md.
+[13:42:24] ST-00005 Merge | Recording merge: Committing final merge metadata on the target branch.
