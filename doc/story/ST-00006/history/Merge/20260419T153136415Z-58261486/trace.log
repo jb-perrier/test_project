@@ -4,3 +4,5 @@
 [15:31:36] ST-00006 Merge | Preparing merge: Verifying that Merge still matches the accepted Review head commit.
 [15:31:36] ST-00006 Merge | Preparing merge: Writing Merge.md with the prepared merge state.
 [15:31:36] ST-00006 Merge | Preparing merge: Committing story artifacts before merging branches.
+[15:31:37] ST-00006 Merge | Recording merge: Writing final merge metadata to Merge.md.
+[15:31:37] ST-00006 Merge | Recording merge: Committing final merge metadata on the target branch.

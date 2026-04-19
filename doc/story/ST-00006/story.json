@@ -1,9 +1,9 @@
 {
   "id": "ST-00006",
   "title": "Decrease a bit the IA difficulty",
-  "currentStep": "Merge",
+  "currentStep": "Done",
   "createdAt": "2026-04-19T14:32:06.221Z",
-  "updatedAt": "2026-04-19T15:31:33.620Z",
+  "updatedAt": "2026-04-19T15:31:37.460Z",
   "baseCommit": "19cf560d7a3a91cc4656977b5aa721f977d3fe3c",
   "branchName": "story/ST-00006",
   "targetBranchName": "main",
@@ -13,14 +13,16 @@
     "Plan": "2026-04-19T14:39:15.571Z",
     "Implementation": "2026-04-19T15:17:31.975Z",
     "Review": "2026-04-19T15:26:31.371Z",
-    "Documentation": "2026-04-19T15:31:33.620Z"
+    "Documentation": "2026-04-19T15:31:33.620Z",
+    "Merge": "2026-04-19T15:31:37.460Z"
   },
   "lastRunAt": {
     "Draft": "2026-04-19T14:34:52.331Z",
     "Plan": "2026-04-19T14:37:57.473Z",
     "Implementation": "2026-04-19T15:14:15.098Z",
     "Review": "2026-04-19T15:24:55.298Z",
-    "Documentation": "2026-04-19T15:31:18.592Z"
+    "Documentation": "2026-04-19T15:31:18.592Z",
+    "Merge": "2026-04-19T15:31:37.460Z"
   },
   "reviewedFiles": [
     "snake/src/game.rs"
@@ -38,32 +40,38 @@
     "Plan": "20260419T143552142Z-84a9c106",
     "Implementation": "20260419T150749098Z-8c10061c",
     "Review": "20260419T151735215Z-c26e2726",
-    "Documentation": "20260419T152634411Z-0d11cf77"
+    "Documentation": "20260419T152634411Z-0d11cf77",
+    "Merge": "20260419T153136415Z-58261486"
   },
   "acceptedRunByStep": {
     "Draft": "20260419T143248528Z-c5ff30e1",
     "Plan": "20260419T143552142Z-84a9c106",
     "Implementation": "20260419T150749098Z-8c10061c",
     "Review": "20260419T151735215Z-c26e2726",
-    "Documentation": "20260419T152634411Z-0d11cf77"
+    "Documentation": "20260419T152634411Z-0d11cf77",
+    "Merge": "20260419T153136415Z-58261486"
   },
   "artifactHashByStep": {
     "Draft": "c92e5737aa69d096d9eb0407b6b1933ac13b4ac8614371dd086face24440e959",
     "Plan": "7a3a767632e3665487e06a6cd8e5e3f8d32aeb25e6abd1c1d9e7ae31a72e06ab",
     "Implementation": "2585debbfdd58b8ad4e04d593ad1a808198cbebee12d22f41bdbc26f1d4dde38",
     "Review": "b6e2651ecf778341f8686f1bc0f07014c30e2840a3f8099001996a166ba1d776",
-    "Documentation": "2f3bb03b3c884d070063a4a04e32b0e44412cf3c8be209429319d744e7da0ff3"
+    "Documentation": "2f3bb03b3c884d070063a4a04e32b0e44412cf3c8be209429319d744e7da0ff3",
+    "Merge": "4ec1ac01980b41e0374fbce685c855769063417aae73ad86af576a6f55116de4"
   },
   "lastRunStatusByStep": {
     "Draft": "accepted",
     "Plan": "accepted",
     "Implementation": "accepted",
     "Review": "accepted",
-    "Documentation": "accepted"
+    "Documentation": "accepted",
+    "Merge": "accepted"
   },
   "lastImplementationCommit": "8f1cefcc958f7289fe8d3dde21af82fd3cfea2ec",
   "reviewVerdict": "approved",
   "reviewCoverage": "complete",
   "reviewValidationStatus": "declared-only",
-  "reviewedHeadCommit": "8f1cefcc958f7289fe8d3dde21af82fd3cfea2ec"
+  "reviewedHeadCommit": "8f1cefcc958f7289fe8d3dde21af82fd3cfea2ec",
+  "mergeCommit": "0eb66e927e09e7a5f10edceaccdbb5edb4641fe4",
+  "mergedAt": "2026-04-19T15:31:37.460Z"
 }

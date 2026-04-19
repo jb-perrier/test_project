@@ -2,12 +2,16 @@
   "version": 1,
   "runId": "20260419T153136415Z-58261486",
   "step": "Merge",
-  "status": "prepared",
+  "status": "accepted",
   "startedAt": "2026-04-19T15:31:36.415Z",
+  "completedAt": "2026-04-19T15:31:37.460Z",
+  "acceptedAt": "2026-04-19T15:31:37.460Z",
+  "artifactHash": "4ec1ac01980b41e0374fbce685c855769063417aae73ad86af576a6f55116de4",
   "repairAttempts": 0,
   "storyId": "ST-00006",
   "storyTitle": "Decrease a bit the IA difficulty",
   "storyStepAtStart": "Merge",
+  "storyStepAtEnd": "Done",
   "storyBaseCommit": "19cf560d7a3a91cc4656977b5aa721f977d3fe3c",
   "storyBranchName": "story/ST-00006",
   "storyTargetBranchName": "main",
@@ -18,6 +22,9 @@
   "storySpecPaths": [
     "doc/spec/gameplay.md"
   ],
-  "outputPaths": [],
+  "outputPaths": [
+    "doc/story/ST-00006/Merge.md"
+  ],
+  "artifactPath": "history/Merge/20260419T153136415Z-58261486/artifact.md",
   "tracePath": "history/Merge/20260419T153136415Z-58261486/trace.log"
 }
