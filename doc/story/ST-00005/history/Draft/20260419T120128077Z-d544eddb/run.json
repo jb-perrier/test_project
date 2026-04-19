@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "runId": "20260419T120128077Z-d544eddb",
+  "step": "Draft",
+  "status": "accepted",
+  "startedAt": "2026-04-19T12:01:28.077Z",
+  "completedAt": "2026-04-19T12:02:39.346Z",
+  "modelLabel": "copilot/gpt-5.4",
+  "promptHash": "f3916244e0fa7c969148e78480082de2aacb5bcb3d4a9a9e9c4be38f5b71faa3",
+  "artifactHash": "945c8be2b8810ca6cb7b6236d757a2afe7b59758c5551cd14b240cf8f6a79a1a",
+  "repairAttempts": 0,
+  "storyId": "ST-00005",
+  "storyTitle": "Make the IA looks more human",
+  "storyStepAtStart": "Draft",
+  "storyStepAtEnd": "Draft",
+  "storyBaseCommit": "23c566accbbfee92c374763b3407f53e59392af3",
+  "storyBranchName": "story/ST-00005",
+  "storyTargetBranchName": "main",
+  "storyChangedPaths": [],
+  "storySpecPaths": [],
+  "outputPaths": [
+    "doc/story/ST-00005/Draft.md"
+  ],
+  "promptPath": "history/Draft/20260419T120128077Z-d544eddb/prompt.md",
+  "artifactPath": "history/Draft/20260419T120128077Z-d544eddb/artifact.md",
+  "tracePath": "history/Draft/20260419T120128077Z-d544eddb/trace.log",
+  "acceptedAt": "2026-04-19T12:02:51.510Z"
+}

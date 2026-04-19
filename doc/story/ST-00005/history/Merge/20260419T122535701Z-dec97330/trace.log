@@ -1,0 +1,13 @@
+[12:25:35] ST-00005 Merge | Started Merge for ST-00005.
+[12:25:35] ST-00005 Merge | Starting step: Preparing Merge for ST-00005.
+[12:25:35] ST-00005 Merge | Preparing merge: Validating the story branch before merge.
+[12:25:35] ST-00005 Merge | Preparing merge: Verifying that Merge still matches the accepted Review head commit.
+[12:25:35] ST-00005 Merge | Preparing merge: Writing Merge.md with the prepared merge state.
+[12:25:35] ST-00005 Merge | Preparing merge: Committing story artifacts before merging branches.
+[12:25:36] ST-00005 Merge | Merging branches: Merging story/ST-00005 into main.
+[12:25:36] ST-00005 Merge | Failed: Command failed: git switch main
+error: Your local changes to the following files would be overwritten by checkout:
+	doc/story/ST-00005/history/Merge/20260419T122535701Z-dec97330/trace.log
+Please commit your changes or stash them before you switch branches.
+Aborting
+

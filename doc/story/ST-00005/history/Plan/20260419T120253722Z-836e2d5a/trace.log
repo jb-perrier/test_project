@@ -1,0 +1,81 @@
+[12:02:53] ST-00005 Plan | Started Plan for ST-00005.
+[12:02:53] ST-00005 Plan | Starting step: Preparing Plan for ST-00005.
+[12:02:53] ST-00005 Plan | Validating repository: Checking branch alignment and repository state.
+[12:02:53] ST-00005 Plan | Repository validation complete for ST-00005.
+[12:02:53] ST-00005 Plan | Collecting git diff: Reading story changes since the baseline commit.
+[12:02:53] ST-00005 Plan | Diff snapshot includes 0 changed files.
+[12:02:53] ST-00005 Plan | Building prompt: Loading step instructions.
+[12:02:53] ST-00005 Plan | Building prompt: Loading prior story artifacts.
+[12:02:53] ST-00005 Plan | Loading story artifacts for Plan: Draft, Plan.
+[12:02:53] ST-00005 Plan | Reading Draft.md.
+[12:02:53] ST-00005 Plan | Reading Plan.md.
+[12:02:53] ST-00005 Plan | Building prompt: Loading project specification.
+[12:02:53] ST-00005 Plan | Loading 3 specification files for prompt context.
+[12:02:53] ST-00005 Plan | Reading specification excerpt from doc/spec/ui.md.
+[12:02:53] ST-00005 Plan | Reading specification excerpt from doc/spec/overview.md.
+[12:02:53] ST-00005 Plan | Reading specification excerpt from doc/spec/gameplay.md.
+[12:02:53] ST-00005 Plan | Building prompt: Scanning project files and excerpts.
+[12:02:53] ST-00005 Plan | Scanning workspace files for Plan prompt context.
+[12:02:53] ST-00005 Plan | Selected 14 project context files for Plan: snake/README.md, doc/spec/overview.md, doc/spec/ui.md, doc/spec/gameplay.md, .serena/project.yml, .serena/project.local.yml, snake/src/render.rs, snake/src/main.rs, snake/src/input.rs, snake/src/game.rs, snake/Cargo.toml, .serena/memories/task_completion.md, .serena/memories/suggested_commands.md, .serena/memories/style_conventions.md.
+[12:02:53] ST-00005 Plan | Reading prompt context excerpt from snake/README.md.
+[12:02:53] ST-00005 Plan | Reading prompt context excerpt from doc/spec/overview.md.
+[12:02:53] ST-00005 Plan | Reading prompt context excerpt from doc/spec/ui.md.
+[12:02:53] ST-00005 Plan | Reading prompt context excerpt from doc/spec/gameplay.md.
+[12:02:53] ST-00005 Plan | Reading prompt context excerpt from .serena/project.yml.
+[12:02:53] ST-00005 Plan | Reading prompt context excerpt from .serena/project.local.yml.
+[12:02:53] ST-00005 Plan | Reading prompt context excerpt from snake/src/render.rs.
+[12:02:53] ST-00005 Plan | Reading prompt context excerpt from snake/src/main.rs.
+[12:02:53] ST-00005 Plan | Reading prompt context excerpt from snake/src/input.rs.
+[12:02:53] ST-00005 Plan | Reading prompt context excerpt from snake/src/game.rs.
+[12:02:53] ST-00005 Plan | Reading prompt context excerpt from snake/Cargo.toml.
+[12:02:53] ST-00005 Plan | Reading prompt context excerpt from .serena/memories/task_completion.md.
+[12:02:53] ST-00005 Plan | Reading prompt context excerpt from .serena/memories/suggested_commands.md.
+[12:02:53] ST-00005 Plan | Reading prompt context excerpt from .serena/memories/style_conventions.md.
+[12:02:53] ST-00005 Plan | Prompt ready: Prepared the Plan prompt.
+[12:02:53] ST-00005 Plan | Generating artifact: Sending the prompt to the model.
+[12:02:53] ST-00005 Plan | Generating artifact: Model is drafting the artifact.
+[12:05:20] ST-00005 Plan | Full preview for Summary
+    - Replace the current closest-safe-food enemy choice in `snake/src/game.rs` with a lightweight heuristic that still favors food but can safely keep moving straight or take a small detour.
+    - Keep all existing gameplay, input, and rendering behavior unchanged.
+    - Add seeded unit tests for representative enemy-decision states.
+
+[12:05:20] ST-00005 Plan | Full preview for Findings
+    - Enemy movement, collision resolution, and food handling are centralized in `snake/src/game.rs`, so the story can stay isolated to gameplay code.
+    - `Game::step` already receives `&mut impl Rng`, and `rand` is already present, so reproducible tie-breaking can be added without changing runtime wiring or dependencies.
+    - Current README/spec text still describes a simpler food-first enemy. A later Documentation step should update `snake/README.md` and the Snake gameplay spec after implementation.
+
+[12:05:21] ST-00005 Plan | Full preview for Affected Files
+    - `snake/src/game.rs`
+
+[12:05:21] ST-00005 Plan | Full preview for Implementation Approach
+    - Replace the current safe-move sort with explicit candidate-evaluation helpers in `snake/src/game.rs`:
+      - enumerate legal enemy directions,
+      - reject immediately fatal moves using the existing collision rules,
+      - score the remaining moves,
+      - choose from the best or near-best band.
+    - Base the score on small, readable heuristics instead of shortest-path-only behavior:
+      - wrapped food-distance improvement,
+      - bonus for continuing straight,
+      - mild turn cost so a tiny food gain does not always force a turn,
+      - local openness or follow-up safety bonus to avoid cramped moves when a safer option exists.
+    - Keep food-seeking as the main bias when the advantage is clear, but allow straight or slight-detour moves when scores are close.
+    - Use the existing RNG only for low-amplitude tie-breaking or near-best selection so runs vary while tests stay seedable.
+    - Add or extend `#[cfg(test)]` coverage in `snake/src/game.rs`, using local state-building helpers rather than exposing new public setup APIs.
+
+[12:05:21] ST-00005 Plan | Full preview for Risks
+    - Heuristic weights may leave the enemy too optimal or make it too weak; constants will need light tuning.
+    - Safety and openness helpers must match actual next-tick collision behavior, including wraparound and head/body rules, or the AI may rate a fatal move as safe.
+    - Documentation will be temporarily stale until the later Documentation step lands.
+
+[12:05:22] ST-00005 Plan | Full preview for Validation
+    - Run `cargo test --manifest-path snake/Cargo.toml`.
+    - Add tests that cover:
+      - safe straight-vs-turn choice with only a small food improvement,
+      - clear food-closing preference,
+      - fatal-move avoidance when safe alternatives exist,
+      - deterministic results with a seeded RNG.
+    - Run `cargo run --manifest-path snake/Cargo.toml` for a short manual play check that controls, phases, wraparound, collisions, scoring, growth, food spawning, and tick-speed progression remain unchanged while the enemy feels less repetitive.
+
+[12:05:22] ST-00005 Plan | Validating artifact: Checking generated markdown structure.
+[12:05:22] ST-00005 Plan | Saving artifact: Writing Plan.md and updating workflow state.
+[12:05:22] ST-00005 Plan | Completed: Saved Plan for ST-00005.

@@ -1,0 +1,51 @@
+{
+  "version": 1,
+  "runId": "20260419T130544487Z-1f3e550b",
+  "step": "Implementation",
+  "status": "accepted",
+  "startedAt": "2026-04-19T13:05:44.487Z",
+  "completedAt": "2026-04-19T13:18:54.961Z",
+  "modelLabel": "copilot/gpt-5.4",
+  "promptHash": "2e1937f9f16d74cbc8662047b8fad3b16d1e2a4b4930db17916aca54f013b40b",
+  "artifactHash": "708a914df2e4e031691a096c03452df947bed94d39736d37cf27239ece0cf8f6",
+  "repairAttempts": 0,
+  "storyId": "ST-00005",
+  "storyTitle": "Make the IA looks more human",
+  "storyStepAtStart": "Implementation",
+  "storyStepAtEnd": "Implementation",
+  "storyBaseCommit": "23c566accbbfee92c374763b3407f53e59392af3",
+  "storyBranchName": "story/ST-00005",
+  "storyTargetBranchName": "main",
+  "storyImplementationCommit": "bacb8b28e0215303c1ecd416be77e2274f495ffb",
+  "storyChangedPaths": [
+    "snake/src/game.rs"
+  ],
+  "storySpecPaths": [
+    "doc/spec/gameplay.md"
+  ],
+  "outputPaths": [
+    "doc/story/ST-00005/Implementation.md",
+    "snake/src/game.rs"
+  ],
+  "promptPath": "history/Implementation/20260419T130544487Z-1f3e550b/prompt.md",
+  "artifactPath": "history/Implementation/20260419T130544487Z-1f3e550b/artifact.md",
+  "tracePath": "history/Implementation/20260419T130544487Z-1f3e550b/trace.log",
+  "parsedArtifact": {
+    "executionSummary": "- Updated `snake/src/game.rs` to rework the tie-break test fixture so the enemy now has a real two-way near-best choice.\n- Added a test helper that inspects the computed near-best set before asserting seeded reproducibility.\n- Kept gameplay code and heuristic scoring unchanged outside the test fixture and assertions.",
+    "filesChanged": [
+      "`snake/src/game.rs`",
+      "Adjusted `tie_break_game()` so `Left` and `Right` are the near-best safe moves.",
+      "Added `near_best_enemy_choices()` in the test module.",
+      "Updated the seeded tie-break test to assert against the actual near-best band for the fixture."
+    ],
+    "validationCommands": [
+      "`cargo test --manifest-path snake/Cargo.toml` — not run in this environment.",
+      "`cargo run --manifest-path snake/Cargo.toml` — not run in this environment."
+    ],
+    "notes": [
+      "Command execution was not available through the provided workspace tools, so validation could not be run here.",
+      "Documentation follow-up still remains for `snake/README.md` and `doc/spec/*`, which were left unchanged by scope."
+    ]
+  },
+  "acceptedAt": "2026-04-19T13:18:57.972Z"
+}

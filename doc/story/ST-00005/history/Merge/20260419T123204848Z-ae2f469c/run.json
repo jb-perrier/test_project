@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "runId": "20260419T123204848Z-ae2f469c",
+  "step": "Merge",
+  "status": "failed",
+  "startedAt": "2026-04-19T12:32:04.848Z",
+  "completedAt": "2026-04-19T12:32:05.056Z",
+  "repairAttempts": 0,
+  "storyId": "ST-00005",
+  "storyTitle": "Make the IA looks more human",
+  "storyStepAtStart": "Merge",
+  "storyStepAtEnd": "Merge",
+  "storyBaseCommit": "23c566accbbfee92c374763b3407f53e59392af3",
+  "storyBranchName": "story/ST-00005",
+  "storyTargetBranchName": "main",
+  "storyImplementationCommit": "297212e6a5c9bed076e1825899937776ee169dfc",
+  "storyChangedPaths": [
+    "snake/src/game.rs"
+  ],
+  "storySpecPaths": [
+    "doc/spec/gameplay.md"
+  ],
+  "outputPaths": [],
+  "tracePath": "history/Merge/20260419T123204848Z-ae2f469c/trace.log",
+  "errorMessage": "Story ST-00005 cannot merge because the current HEAD commit c0787e1608e6580c507052d6abc6c7af191080b8 does not match the accepted reviewed head commit 297212e6a5c9bed076e1825899937776ee169dfc. Rerun Review and accept it again before Merge."
+}

@@ -1,0 +1,5 @@
+[12:32:04] ST-00005 Merge | Started Merge for ST-00005.
+[12:32:04] ST-00005 Merge | Starting step: Preparing Merge for ST-00005.
+[12:32:04] ST-00005 Merge | Preparing merge: Validating the story branch before merge.
+[12:32:05] ST-00005 Merge | Preparing merge: Verifying that Merge still matches the accepted Review head commit.
+[12:32:05] ST-00005 Merge | Failed: Story ST-00005 cannot merge because the current HEAD commit c0787e1608e6580c507052d6abc6c7af191080b8 does not match the accepted reviewed head commit 297212e6a5c9bed076e1825899937776ee169dfc. Rerun Review and accept it again before Merge.

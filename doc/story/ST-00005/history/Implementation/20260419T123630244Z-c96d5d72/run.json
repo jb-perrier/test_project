@@ -1,0 +1,52 @@
+{
+  "version": 1,
+  "runId": "20260419T123630244Z-c96d5d72",
+  "step": "Implementation",
+  "status": "accepted",
+  "startedAt": "2026-04-19T12:36:30.244Z",
+  "completedAt": "2026-04-19T12:48:53.035Z",
+  "modelLabel": "copilot/gpt-5.4",
+  "promptHash": "e22f205ae06aa9d1934d4ee829ab0a172a557c3dfc57bedb2a24c9b4ed0a7e40",
+  "artifactHash": "0398eacebfec5588566d62786e3e3ff73441df42fe650a0bd106de58281edb53",
+  "repairAttempts": 0,
+  "storyId": "ST-00005",
+  "storyTitle": "Make the IA looks more human",
+  "storyStepAtStart": "Implementation",
+  "storyStepAtEnd": "Implementation",
+  "storyBaseCommit": "23c566accbbfee92c374763b3407f53e59392af3",
+  "storyBranchName": "story/ST-00005",
+  "storyTargetBranchName": "main",
+  "storyImplementationCommit": "21a9295e603c2c12f5e8d69f0ef5c3e25ea0ca0c",
+  "storyChangedPaths": [
+    "snake/src/game.rs"
+  ],
+  "storySpecPaths": [
+    "doc/spec/gameplay.md"
+  ],
+  "outputPaths": [
+    "doc/story/ST-00005/Implementation.md",
+    "snake/src/game.rs"
+  ],
+  "promptPath": "history/Implementation/20260419T123630244Z-c96d5d72/prompt.md",
+  "artifactPath": "history/Implementation/20260419T123630244Z-c96d5d72/artifact.md",
+  "tracePath": "history/Implementation/20260419T123630244Z-c96d5d72/trace.log",
+  "parsedArtifact": {
+    "executionSummary": "- Applied the enemy decision update in `snake/src/game.rs` using heuristic scoring instead of closest-food-only selection.\n- Preserved safety-first filtering, wraparound behavior, collision rules, scoring, growth, and seeded near-best tie-breaking.\n- Added an explicit unit test for the “keep moving straight when it is still a reasonable food-closing move” case.",
+    "filesChanged": [
+      "`snake/src/game.rs`",
+      "Scored safe enemy moves with food-distance progress, straight-line bias, turn cost, food-capture bonus, and follow-up safety checks.",
+      "Reused projected-segment collision helpers for candidate and follow-up evaluation.",
+      "Expanded seeded tests for straight-vs-turn behavior, food preference, safe fallback behavior, and reproducible tie-breaking."
+    ],
+    "validationCommands": [
+      "Not run in this step:",
+      "`cargo test --manifest-path snake/Cargo.toml`",
+      "`cargo run --manifest-path snake/Cargo.toml`"
+    ],
+    "notes": [
+      "Documentation follow-up remains for `snake/README.md` and `doc/spec/*`, which still describe the older enemy behavior.",
+      "No documentation files were edited in this step, per scope restrictions."
+    ]
+  },
+  "acceptedAt": "2026-04-19T12:49:24.182Z"
+}

@@ -1,3 +1,14 @@
+# Spec Update
+
+## Target Spec File
+doc/spec/gameplay.md
+
+## Change Summary
+- Update the Snake gameplay spec to describe the enemy as a safety-first, heuristic opponent instead of a shortest-path-only food solver.
+- Record that the enemy still contests food, but may keep moving straight or take small safe detours when a turn offers only a minor improvement.
+- Clarify that limited, seedable variation is allowed among near-best safe moves while all other gameplay rules remain unchanged.
+
+## Canonical Spec
 # Snake Gameplay Specification
 
 ## Scope
@@ -102,18 +113,18 @@ This document defines the gameplay rules for the terminal Snake sample under `sn
   - a right turn,
   - reverse only when the snake length is 1.
 - When at least one immediately safe move exists, the enemy does not choose an immediately fatal move.
-- Among safe moves, the enemy uses lightweight heuristics instead of shortest-path-only food pursuit.
+- Among safe moves, the enemy uses lightweight heuristics instead of a shortest-path-only food strategy.
 - The enemy still has a clear food bias:
   - moves that reduce wrapped distance to food are generally preferred over moves that clearly drift away,
   - safe immediate food captures receive extra priority.
-- The enemy also uses simple momentum and safety heuristics:
+- The enemy also uses human-like momentum and safety heuristics:
   - continuing straight is mildly favored,
   - turning carries a small cost,
-  - moves that preserve more safe follow-up options are preferred,
+  - moves that preserve more safe follow-up space are preferred,
   - obvious dead ends are penalized.
 - Because of these heuristics, the enemy may continue straight or take a small safe detour when an immediate turn toward food offers only a minor improvement.
-- When several safe moves score similarly, the enemy may choose among them to add limited variation between runs.
-- Any such variation must remain reproducible under a seeded RNG for automated tests.
+- When several safe moves fall within a narrow near-best band, the enemy may choose any of them to add limited variation between runs.
+- This variation must remain seedable so automated tests can reproduce representative decision states.
 - If every legal move is immediately fatal, the enemy keeps its current direction and normal collision resolution determines the outcome.
 
 ## Collision and End Conditions

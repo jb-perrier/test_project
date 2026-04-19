@@ -1,0 +1,51 @@
+{
+  "version": 1,
+  "runId": "20260419T132437198Z-bd5245ea",
+  "step": "Implementation",
+  "status": "accepted",
+  "startedAt": "2026-04-19T13:24:37.198Z",
+  "completedAt": "2026-04-19T13:30:40.083Z",
+  "modelLabel": "copilot/gpt-5.4",
+  "promptHash": "b1c53e74792fdfe0c1614c3c457529cdef124e5be04ff0fe5655944e43a96903",
+  "artifactHash": "af45aa431b1fc402c9374794c77ab90dde48d69ca81c7561c12cb5070625bbfd",
+  "repairAttempts": 0,
+  "storyId": "ST-00005",
+  "storyTitle": "Make the IA looks more human",
+  "storyStepAtStart": "Implementation",
+  "storyStepAtEnd": "Implementation",
+  "storyBaseCommit": "23c566accbbfee92c374763b3407f53e59392af3",
+  "storyBranchName": "story/ST-00005",
+  "storyTargetBranchName": "main",
+  "storyImplementationCommit": "ca4a3638162d1cc21d81410e71d37f74a32f50fa",
+  "storyChangedPaths": [
+    "snake/src/game.rs"
+  ],
+  "storySpecPaths": [
+    "doc/spec/gameplay.md"
+  ],
+  "outputPaths": [
+    "doc/story/ST-00005/Implementation.md",
+    "snake/src/game.rs"
+  ],
+  "promptPath": "history/Implementation/20260419T132437198Z-bd5245ea/prompt.md",
+  "artifactPath": "history/Implementation/20260419T132437198Z-bd5245ea/artifact.md",
+  "tracePath": "history/Implementation/20260419T132437198Z-bd5245ea/trace.log",
+  "parsedArtifact": {
+    "executionSummary": "- Updated `snake/src/game.rs` to fix the failing dead-end test fixture.\n- Reworked `enemy_can_keep_moving_straight_when_a_food_turn_leads_into_a_dead_end` so the upward food turn now has $0$ follow-up options under the implemented scorer.\n- Added fixture assertions in that test to verify the `Up` branch is safe immediately but becomes a true dead end before asserting the final enemy choice.\n- Left gameplay heuristics unchanged outside the test setup and assertions.",
+    "filesChanged": [
+      "`snake/src/game.rs`",
+      "Expanded the player fixture in the dead-end test to block the enemy's post-turn escape cells.",
+      "Added explicit assertions for `move_is_fatal(...) == false` and `enemy_follow_up_options(...) == 0` for the `Up` branch.",
+      "Kept the expected chosen direction as `Direction::Right` once the dead-end condition is real."
+    ],
+    "validationCommands": [
+      "`cargo test --manifest-path snake/Cargo.toml` — not run; no command execution tool was available.",
+      "`cargo run --manifest-path snake/Cargo.toml` — not run; no command execution tool was available."
+    ],
+    "notes": [
+      "Validation output could not be attached in this environment because the available workspace tools support file inspection and editing only.",
+      "Documentation follow-up remains out of scope for this step: `snake/README.md` and `doc/spec/*` were not edited."
+    ]
+  },
+  "acceptedAt": "2026-04-19T13:31:02.744Z"
+}

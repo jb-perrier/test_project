@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "runId": "20260419T125534748Z-a62566c9",
+  "step": "Implementation",
+  "status": "cancelled",
+  "startedAt": "2026-04-19T12:55:34.748Z",
+  "completedAt": "2026-04-19T12:55:42.854Z",
+  "modelLabel": "copilot/gpt-5.4",
+  "promptHash": "8c06890f1e7ff23c79dcfc0913529c1fb37667f9639209f659fdec55f0fed2bb",
+  "repairAttempts": 0,
+  "storyId": "ST-00005",
+  "storyTitle": "Make the IA looks more human",
+  "storyStepAtStart": "Implementation",
+  "storyStepAtEnd": "Implementation",
+  "storyBaseCommit": "23c566accbbfee92c374763b3407f53e59392af3",
+  "storyBranchName": "story/ST-00005",
+  "storyTargetBranchName": "main",
+  "storyImplementationCommit": "21a9295e603c2c12f5e8d69f0ef5c3e25ea0ca0c",
+  "storyChangedPaths": [
+    "snake/src/game.rs"
+  ],
+  "storySpecPaths": [
+    "doc/spec/gameplay.md"
+  ],
+  "outputPaths": [],
+  "promptPath": "history/Implementation/20260419T125534748Z-a62566c9/prompt.md",
+  "tracePath": "history/Implementation/20260419T125534748Z-a62566c9/trace.log",
+  "errorMessage": "Response stream has been closed"
+}

@@ -1,0 +1,43 @@
+{
+  "version": 1,
+  "runId": "20260419T131859070Z-607bf124",
+  "step": "Review",
+  "status": "completed",
+  "startedAt": "2026-04-19T13:18:59.070Z",
+  "completedAt": "2026-04-19T13:24:22.847Z",
+  "modelLabel": "copilot/gpt-5.4",
+  "promptHash": "c1b6c86d6e7a326407f75daecffa05639850afb8ee2ed3347211bfc750d68de2",
+  "artifactHash": "a62c9217e5b15bc5b65643bb1ca7e2666455ffbbf71ef1c6f70ee971699ed737",
+  "repairAttempts": 1,
+  "storyId": "ST-00005",
+  "storyTitle": "Make the IA looks more human",
+  "storyStepAtStart": "Review",
+  "storyStepAtEnd": "Review",
+  "storyBaseCommit": "23c566accbbfee92c374763b3407f53e59392af3",
+  "storyBranchName": "story/ST-00005",
+  "storyTargetBranchName": "main",
+  "storyImplementationCommit": "bacb8b28e0215303c1ecd416be77e2274f495ffb",
+  "storyChangedPaths": [
+    "snake/src/game.rs"
+  ],
+  "storySpecPaths": [
+    "doc/spec/gameplay.md"
+  ],
+  "outputPaths": [
+    "doc/story/ST-00005/Review.md"
+  ],
+  "promptPath": "history/Review/20260419T131859070Z-607bf124/prompt.md",
+  "artifactPath": "history/Review/20260419T131859070Z-607bf124/artifact.md",
+  "tracePath": "history/Review/20260419T131859070Z-607bf124/trace.log",
+  "reviewManifestPath": "history/Review/20260419T131859070Z-607bf124/review-manifest.json",
+  "parsedArtifact": {
+    "verdict": "changes-required",
+    "coverage": "complete",
+    "validationStatus": "declared-only",
+    "reviewedHeadCommit": "bacb8b28e0215303c1ecd416be77e2274f495ffb",
+    "reviewedFiles": [
+      "snake/src/game.rs"
+    ],
+    "blindSpots": []
+  }
+}
