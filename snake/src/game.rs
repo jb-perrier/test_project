@@ -16,6 +16,7 @@ const ENEMY_TURN_PENALTY: i32 = 1;
 const ENEMY_FOOD_CAPTURE_BONUS: i32 = 4;
 const ENEMY_FOLLOW_UP_WEIGHT: i32 = 1;
 const ENEMY_DEAD_END_PENALTY: i32 = 3;
+const ENEMY_MISSED_ADJACENT_FOOD_PENALTY: i32 = 4;
 const ENEMY_NEAR_BEST_BAND: i32 = 1;
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -408,6 +409,16 @@ impl Game {
       score += ENEMY_FOOD_CAPTURE_BONUS;
     }
 
+    if self.enemy_would_miss_adjacent_food(
+      player_next_head,
+      player_grows,
+      enemy_next_head,
+      direction,
+      enemy_grows,
+    ) {
+      score -= ENEMY_MISSED_ADJACENT_FOOD_PENALTY;
+    }
+
     let follow_up_options = self.enemy_follow_up_options(
       player_next_head,
       player_grows,
@@ -449,6 +460,37 @@ impl Game {
       }
       None => 0,
     }
+  }
+
+  fn enemy_would_miss_adjacent_food(
+    &self,
+    player_next_head: Point,
+    player_grows: bool,
+    enemy_next_head: Point,
+    direction: Direction,
+    enemy_grows: bool,
+  ) -> bool {
+    if enemy_grows {
+      return false;
+    }
+
+    let Some(food) = self.food else {
+      return false;
+    };
+
+    if self.wrapped_distance_score(enemy_next_head, food) != 1 {
+      return false;
+    }
+
+    let player_after_move =
+      Self::snake_segments_after_move(&self.player, player_next_head, player_grows);
+    let enemy_after_move =
+      Self::snake_segments_after_move(&self.enemy, enemy_next_head, enemy_grows);
+    let straight_head = self.advance(enemy_next_head, direction);
+
+    !Self::segments_collision(&player_after_move, straight_head, false)
+      && !Self::segments_collision(&enemy_after_move, straight_head, false)
+      && straight_head != food
   }
 
   fn enemy_follow_up_options(
@@ -1053,6 +1095,20 @@ mod tests {
     game.player = snake(Direction::Right, [point(6, 6), point(5, 6), point(4, 6)]);
     game.enemy = snake(Direction::Right, [point(3, 3), point(2, 3), point(1, 3)]);
     game.food = Some(point(5, 2));
+
+    assert_eq!(enemy_choice(&game, Direction::Right, 7), Direction::Right);
+  }
+
+  #[test]
+  fn enemy_avoids_turning_beside_food_when_a_skipped_tick_would_pass_it() {
+    let mut rng = seeded_rng();
+    let mut game = Game::new(7, 7, &mut rng);
+
+    game.phase = Phase::Running;
+    game.player = snake(Direction::Right, [point(6, 6), point(5, 6), point(4, 6)]);
+    game.enemy = snake(Direction::Right, [point(3, 3), point(2, 3), point(1, 3)]);
+    game.food = Some(point(2, 2));
+    game.enemy_replans_next_tick = true;
 
     assert_eq!(enemy_choice(&game, Direction::Right, 7), Direction::Right);
   }
