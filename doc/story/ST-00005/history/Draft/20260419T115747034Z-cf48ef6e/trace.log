@@ -1,0 +1,65 @@
+[11:57:47] ST-00005 Draft | Started Draft for ST-00005.
+[11:57:47] ST-00005 Draft | Starting step: Preparing Draft for ST-00005.
+[11:57:47] ST-00005 Draft | Validating repository: Checking branch alignment and repository state.
+[11:57:47] ST-00005 Draft | Repository validation complete for ST-00005.
+[11:57:47] ST-00005 Draft | Collecting git diff: Reading story changes since the baseline commit.
+[11:57:47] ST-00005 Draft | Diff snapshot includes 0 changed files.
+[11:57:47] ST-00005 Draft | Building prompt: Loading step instructions.
+[11:57:47] ST-00005 Draft | Building prompt: Loading prior story artifacts.
+[11:57:47] ST-00005 Draft | Loading story artifacts for Draft: Draft.
+[11:57:47] ST-00005 Draft | Reading Draft.md.
+[11:57:47] ST-00005 Draft | Building prompt: Loading project specification.
+[11:57:47] ST-00005 Draft | Loading 3 specification files for prompt context.
+[11:57:47] ST-00005 Draft | Reading specification excerpt from doc/spec/ui.md.
+[11:57:47] ST-00005 Draft | Reading specification excerpt from doc/spec/overview.md.
+[11:57:47] ST-00005 Draft | Reading specification excerpt from doc/spec/gameplay.md.
+[11:57:47] ST-00005 Draft | Building prompt: Scanning project files and excerpts.
+[11:57:47] ST-00005 Draft | Scanning workspace files for Draft prompt context.
+[11:57:47] ST-00005 Draft | Selected 8 project context files for Draft: snake/README.md, doc/spec/overview.md, doc/spec/gameplay.md, doc/spec/ui.md, .serena/project.yml, .serena/project.local.yml, snake/src/render.rs, snake/src/main.rs.
+[11:57:47] ST-00005 Draft | Reading prompt context excerpt from snake/README.md.
+[11:57:47] ST-00005 Draft | Reading prompt context excerpt from doc/spec/overview.md.
+[11:57:47] ST-00005 Draft | Reading prompt context excerpt from doc/spec/gameplay.md.
+[11:57:47] ST-00005 Draft | Reading prompt context excerpt from doc/spec/ui.md.
+[11:57:47] ST-00005 Draft | Reading prompt context excerpt from .serena/project.yml.
+[11:57:47] ST-00005 Draft | Reading prompt context excerpt from .serena/project.local.yml.
+[11:57:47] ST-00005 Draft | Reading prompt context excerpt from snake/src/render.rs.
+[11:57:47] ST-00005 Draft | Reading prompt context excerpt from snake/src/main.rs.
+[11:57:47] ST-00005 Draft | Prompt ready: Prepared the Draft prompt.
+[11:57:47] ST-00005 Draft | Generating artifact: Sending the prompt to the model.
+[11:57:47] ST-00005 Draft | Generating artifact: Model is drafting the artifact.
+[11:59:05] ST-00005 Draft | Full preview for User Need
+    - As a player, the enemy snake should feel less perfect and less repetitive.
+    - The opponent should look closer to a human player so runs feel more varied and less scripted.
+
+[11:59:05] ST-00005 Draft | Full preview for Problem
+    - The current enemy AI strongly favors the closest safe path to food.
+    - This makes the opponent look overly optimal and predictable.
+    - Similar board states tend to produce the same behavior, which reduces gameplay variety.
+
+[11:59:06] ST-00005 Draft | Full preview for Goals
+    - Make enemy decisions look more human-like, with believable imperfections.
+    - Add controlled variation so similar states can lead to different reasonable moves.
+    - Keep the enemy competitive and readable instead of random.
+    - Preserve the existing Snake rules and lightweight implementation style.
+
+[11:59:06] ST-00005 Draft | Full preview for Non-Goals
+    - Turning the enemy into a purely random or trivial opponent.
+    - Changing controls, phases, board size, scoring, growth, food spawning, wraparound, or tick-speed progression.
+    - Adding new UI flows, difficulty settings, or heavy AI/pathfinding dependencies.
+
+[11:59:06] ST-00005 Draft | Full preview for Acceptance Criteria
+    - Given the enemy has multiple safe moves during `Running`, when it chooses a direction, then the logic is not based only on the shortest path to food.
+    - Given no immediate danger, when the enemy evaluates moves, then it still shows a general bias toward pursuing food instead of wandering aimlessly.
+    - Given a safe detour exists, when the enemy moves, then it may choose a plausible non-optimal move so behavior is less deterministic across similar situations.
+    - Given at least one safe move exists, when the enemy chooses its next move, then it does not intentionally pick an immediately fatal move.
+    - Given the story is implemented, when the game is played, then existing controls, phases, scoring, growth, food behavior, collision rules, wraparound, and tick-speed behavior remain unchanged.
+    - Automated tests cover the updated enemy decision behavior, using reproducible randomness if needed.
+
+[11:59:06] ST-00005 Draft | Full preview for Open Questions
+    - How much weaker should the enemy become, if at all?
+    - Should the variation come from weighted randomness, heuristic bias, or both?
+    - Which human-like traits matter most: occasional hesitation, continuing straight, or softer food pursuit?
+
+[11:59:06] ST-00005 Draft | Validating artifact: Checking generated markdown structure.
+[11:59:06] ST-00005 Draft | Saving artifact: Writing Draft.md and updating workflow state.
+[11:59:06] ST-00005 Draft | Completed: Saved Draft for ST-00005.

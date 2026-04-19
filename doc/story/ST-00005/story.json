@@ -1,0 +1,69 @@
+{
+  "id": "ST-00005",
+  "title": "Make the IA looks more human",
+  "currentStep": "Merge",
+  "createdAt": "2026-04-19T11:56:38.494Z",
+  "updatedAt": "2026-04-19T12:25:33.981Z",
+  "baseCommit": "23c566accbbfee92c374763b3407f53e59392af3",
+  "branchName": "story/ST-00005",
+  "targetBranchName": "main",
+  "reviewLoops": 0,
+  "acceptedAt": {
+    "Draft": "2026-04-19T12:02:51.510Z",
+    "Plan": "2026-04-19T12:05:34.866Z",
+    "Implementation": "2026-04-19T12:16:18.718Z",
+    "Review": "2026-04-19T12:21:31.398Z",
+    "Documentation": "2026-04-19T12:25:33.981Z"
+  },
+  "lastRunAt": {
+    "Draft": "2026-04-19T12:02:39.346Z",
+    "Plan": "2026-04-19T12:05:22.048Z",
+    "Implementation": "2026-04-19T12:16:03.193Z",
+    "Review": "2026-04-19T12:20:57.117Z",
+    "Documentation": "2026-04-19T12:25:01.564Z"
+  },
+  "reviewedFiles": [
+    "snake/src/game.rs"
+  ],
+  "reviewBlindSpots": [],
+  "changedFiles": [
+    "snake/src/game.rs"
+  ],
+  "specFilesTouched": [
+    "doc/spec/gameplay.md"
+  ],
+  "runHistoryVersion": 1,
+  "latestRunByStep": {
+    "Draft": "20260419T120128077Z-d544eddb",
+    "Plan": "20260419T120253722Z-836e2d5a",
+    "Implementation": "20260419T120536526Z-49135da8",
+    "Review": "20260419T121619964Z-a9c274c9",
+    "Documentation": "20260419T122132881Z-40442898"
+  },
+  "acceptedRunByStep": {
+    "Draft": "20260419T120128077Z-d544eddb",
+    "Plan": "20260419T120253722Z-836e2d5a",
+    "Implementation": "20260419T120536526Z-49135da8",
+    "Review": "20260419T121619964Z-a9c274c9",
+    "Documentation": "20260419T122132881Z-40442898"
+  },
+  "artifactHashByStep": {
+    "Draft": "945c8be2b8810ca6cb7b6236d757a2afe7b59758c5551cd14b240cf8f6a79a1a",
+    "Plan": "dd842e166051b97b2e4771c666c2e999f0d53caf112502d31d8deac24755cdd0",
+    "Implementation": "db3c1553eb9b32f40425b674605578b9c72ca1337721bfe2369372f99048fc87",
+    "Review": "a72db379531bb713e20775addbc2a657d24b03316272d5363d533f3890c91ff3",
+    "Documentation": "cbbdc185f0c64401b817ce4d2ed3efa7c343191e61c2c8578c5b25f226b4e3de"
+  },
+  "lastRunStatusByStep": {
+    "Draft": "accepted",
+    "Plan": "accepted",
+    "Implementation": "accepted",
+    "Review": "accepted",
+    "Documentation": "accepted"
+  },
+  "lastImplementationCommit": "297212e6a5c9bed076e1825899937776ee169dfc",
+  "reviewVerdict": "approved",
+  "reviewCoverage": "complete",
+  "reviewValidationStatus": "declared-only",
+  "reviewedHeadCommit": "297212e6a5c9bed076e1825899937776ee169dfc"
+}

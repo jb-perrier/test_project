@@ -1,0 +1,54 @@
+{
+  "version": 1,
+  "runId": "20260419T120253722Z-836e2d5a",
+  "step": "Plan",
+  "status": "accepted",
+  "startedAt": "2026-04-19T12:02:53.722Z",
+  "completedAt": "2026-04-19T12:05:22.048Z",
+  "modelLabel": "copilot/gpt-5.4",
+  "promptHash": "f16537990a00a2b7d43e09de96c97969a3762f61701df836e7153309648f9312",
+  "artifactHash": "dd842e166051b97b2e4771c666c2e999f0d53caf112502d31d8deac24755cdd0",
+  "repairAttempts": 0,
+  "storyId": "ST-00005",
+  "storyTitle": "Make the IA looks more human",
+  "storyStepAtStart": "Plan",
+  "storyStepAtEnd": "Plan",
+  "storyBaseCommit": "23c566accbbfee92c374763b3407f53e59392af3",
+  "storyBranchName": "story/ST-00005",
+  "storyTargetBranchName": "main",
+  "storyChangedPaths": [],
+  "storySpecPaths": [],
+  "outputPaths": [
+    "doc/story/ST-00005/Plan.md"
+  ],
+  "promptPath": "history/Plan/20260419T120253722Z-836e2d5a/prompt.md",
+  "artifactPath": "history/Plan/20260419T120253722Z-836e2d5a/artifact.md",
+  "tracePath": "history/Plan/20260419T120253722Z-836e2d5a/trace.log",
+  "parsedArtifact": {
+    "summary": "- Replace the current closest-safe-food enemy choice in `snake/src/game.rs` with a lightweight heuristic that still favors food but can safely keep moving straight or take a small detour.\n- Keep all existing gameplay, input, and rendering behavior unchanged.\n- Add seeded unit tests for representative enemy-decision states.",
+    "findings": [
+      "Enemy movement, collision resolution, and food handling are centralized in `snake/src/game.rs`, so the story can stay isolated to gameplay code.",
+      "`Game::step` already receives `&mut impl Rng`, and `rand` is already present, so reproducible tie-breaking can be added without changing runtime wiring or dependencies.",
+      "Current README/spec text still describes a simpler food-first enemy. A later Documentation step should update `snake/README.md` and the Snake gameplay spec after implementation."
+    ],
+    "affectedFiles": [
+      "`snake/src/game.rs`"
+    ],
+    "implementationApproach": "- Replace the current safe-move sort with explicit candidate-evaluation helpers in `snake/src/game.rs`:\n  - enumerate legal enemy directions,\n  - reject immediately fatal moves using the existing collision rules,\n  - score the remaining moves,\n  - choose from the best or near-best band.\n- Base the score on small, readable heuristics instead of shortest-path-only behavior:\n  - wrapped food-distance improvement,\n  - bonus for continuing straight,\n  - mild turn cost so a tiny food gain does not always force a turn,\n  - local openness or follow-up safety bonus to avoid cramped moves when a safer option exists.\n- Keep food-seeking as the main bias when the advantage is clear, but allow straight or slight-detour moves when scores are close.\n- Use the existing RNG only for low-amplitude tie-breaking or near-best selection so runs vary while tests stay seedable.\n- Add or extend `#[cfg(test)]` coverage in `snake/src/game.rs`, using local state-building helpers rather than exposing new public setup APIs.",
+    "risks": [
+      "Heuristic weights may leave the enemy too optimal or make it too weak; constants will need light tuning.",
+      "Safety and openness helpers must match actual next-tick collision behavior, including wraparound and head/body rules, or the AI may rate a fatal move as safe.",
+      "Documentation will be temporarily stale until the later Documentation step lands."
+    ],
+    "validation": [
+      "Run `cargo test --manifest-path snake/Cargo.toml`.",
+      "Add tests that cover:",
+      "safe straight-vs-turn choice with only a small food improvement,",
+      "clear food-closing preference,",
+      "fatal-move avoidance when safe alternatives exist,",
+      "deterministic results with a seeded RNG.",
+      "Run `cargo run --manifest-path snake/Cargo.toml` for a short manual play check that controls, phases, wraparound, collisions, scoring, growth, food spawning, and tick-speed progression remain unchanged while the enemy feels less repetitive."
+    ]
+  },
+  "acceptedAt": "2026-04-19T12:05:34.866Z"
+}

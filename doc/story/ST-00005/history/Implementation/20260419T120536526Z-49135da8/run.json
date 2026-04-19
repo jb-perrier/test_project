@@ -1,0 +1,50 @@
+{
+  "version": 1,
+  "runId": "20260419T120536526Z-49135da8",
+  "step": "Implementation",
+  "status": "accepted",
+  "startedAt": "2026-04-19T12:05:36.526Z",
+  "completedAt": "2026-04-19T12:16:03.193Z",
+  "modelLabel": "copilot/gpt-5.4",
+  "promptHash": "fbc105c430554e6f22b9e2e007506a61b25ee64f49d0b3a2742e79d33479a4cf",
+  "artifactHash": "db3c1553eb9b32f40425b674605578b9c72ca1337721bfe2369372f99048fc87",
+  "repairAttempts": 0,
+  "storyId": "ST-00005",
+  "storyTitle": "Make the IA looks more human",
+  "storyStepAtStart": "Implementation",
+  "storyStepAtEnd": "Implementation",
+  "storyBaseCommit": "23c566accbbfee92c374763b3407f53e59392af3",
+  "storyBranchName": "story/ST-00005",
+  "storyTargetBranchName": "main",
+  "storyImplementationCommit": "297212e6a5c9bed076e1825899937776ee169dfc",
+  "storyChangedPaths": [
+    "snake/src/game.rs"
+  ],
+  "storySpecPaths": [],
+  "outputPaths": [
+    "doc/story/ST-00005/Implementation.md",
+    "snake/src/game.rs"
+  ],
+  "promptPath": "history/Implementation/20260419T120536526Z-49135da8/prompt.md",
+  "artifactPath": "history/Implementation/20260419T120536526Z-49135da8/artifact.md",
+  "tracePath": "history/Implementation/20260419T120536526Z-49135da8/trace.log",
+  "parsedArtifact": {
+    "executionSummary": "- Replaced the enemy move picker in `snake/src/game.rs` with scored safe-move evaluation instead of closest-food-only ordering.\n- Added lightweight heuristics for food progress, straight-line bias, turn cost, follow-up safety, dead-end avoidance, and seeded near-best tie-breaking.\n- Added helper logic for legal enemy directions, projected post-move segments, and reusable collision checks.\n- Expanded unit tests in `snake/src/game.rs` with representative enemy-decision and seeded-RNG scenarios.",
+    "filesChanged": [
+      "`snake/src/game.rs`",
+      "Implemented the more human-like enemy decision logic.",
+      "Added internal scoring/helpers for safe candidate evaluation.",
+      "Added enemy behavior tests for straight-vs-turn, food preference, and reproducible variability."
+    ],
+    "validationCommands": [
+      "Not run in this step:",
+      "`cargo test --manifest-path snake/Cargo.toml`",
+      "`cargo run --manifest-path snake/Cargo.toml`"
+    ],
+    "notes": [
+      "Documentation follow-up remains for `snake/README.md` and `doc/spec/*`, which still describe the older food-first enemy behavior.",
+      "Validation should recheck any legacy head-to-head expectations, since the enemy now avoids an immediately fatal move when a safe alternative exists."
+    ]
+  },
+  "acceptedAt": "2026-04-19T12:16:18.718Z"
+}

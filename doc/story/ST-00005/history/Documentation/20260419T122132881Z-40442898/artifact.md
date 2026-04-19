@@ -1,3 +1,14 @@
+# Spec Update
+
+## Target Spec File
+doc/spec/gameplay.md
+
+## Change Summary
+- Update the Snake gameplay spec to describe the enemy as a safety-first, heuristic opponent instead of a shortest-path-only food solver.
+- Record that the enemy still contests food, but may keep moving straight or take small safe detours when a turn offers only a minor improvement.
+- Clarify that limited, seedable variation is allowed among near-best safe moves while all other gameplay rules remain unchanged.
+
+## Canonical Spec
 # Snake Gameplay Specification
 
 ## Scope
