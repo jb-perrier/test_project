@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "runId": "20260418T161528379Z-sample",
+  "step": "Draft",
+  "status": "accepted",
+  "startedAt": "2026-04-18T16:15:28.379Z",
+  "completedAt": "2026-04-18T16:55:00.404Z",
+  "acceptedAt": "2026-04-18T16:55:00.404Z",
+  "repairAttempts": 0,
+  "storyId": "ST-00003",
+  "storyTitle": "Reduce UI size, increase game size",
+  "storyStepAtStart": "Draft",
+  "storyStepAtEnd": "Draft",
+  "storyBaseCommit": "6fbee6ec4127bc2d4ff4f355718a657c09c012b5",
+  "storyBranchName": "story/ST-00003",
+  "storyTargetBranchName": "main",
+  "storyImplementationCommit": "a7fdabf0a83c4fc317b973a2ed489a9520a8ce7f",
+  "storyChangedPaths": [],
+  "storySpecPaths": [],
+  "outputPaths": [
+    "test_project/doc/story/ST-00003/Draft.md"
+  ],
+  "artifactPath": "history/Draft/20260418T161528379Z-sample/artifact.md",
+  "tracePath": "history/Draft/20260418T161528379Z-sample/trace.log"
+}

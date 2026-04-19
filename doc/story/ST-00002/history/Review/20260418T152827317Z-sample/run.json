@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "runId": "20260418T152827317Z-sample",
+  "step": "Review",
+  "status": "accepted",
+  "startedAt": "2026-04-18T15:28:27.317Z",
+  "completedAt": "2026-04-18T15:28:37.324Z",
+  "acceptedAt": "2026-04-18T15:28:37.324Z",
+  "repairAttempts": 0,
+  "storyId": "ST-00002",
+  "storyTitle": "Use ratatui for the ui",
+  "storyStepAtStart": "Review",
+  "storyStepAtEnd": "Review",
+  "storyBaseCommit": "58f626b49cf5a8d2a67b92254f1835561e16f83a",
+  "storyBranchName": "story/ST-00002",
+  "storyTargetBranchName": "main",
+  "storyImplementationCommit": "a23bce557fff39284e65a00ef8906bdd2d767f3a",
+  "storyChangedPaths": [
+    "snake/Cargo.toml",
+    "snake/Cargo.lock",
+    "snake/src/main.rs",
+    "snake/src/render.rs",
+    "snake/README.md"
+  ],
+  "storySpecPaths": [],
+  "outputPaths": [
+    "test_project/doc/story/ST-00002/Review.md"
+  ],
+  "artifactPath": "history/Review/20260418T152827317Z-sample/artifact.md",
+  "tracePath": "history/Review/20260418T152827317Z-sample/trace.log",
+  "parsedArtifact": {
+    "verdict": "approved",
+    "coverage": "complete",
+    "validationStatus": "declared-only",
+    "reviewedHeadCommit": "a23bce557fff39284e65a00ef8906bdd2d767f3a",
+    "reviewedFiles": [
+      "snake/Cargo.lock",
+      "snake/Cargo.toml",
+      "snake/README.md",
+      "snake/src/main.rs",
+      "snake/src/render.rs"
+    ],
+    "blindSpots": []
+  }
+}

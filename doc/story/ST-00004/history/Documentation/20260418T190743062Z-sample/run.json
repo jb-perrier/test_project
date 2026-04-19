@@ -1,0 +1,37 @@
+{
+  "version": 1,
+  "runId": "20260418T190743062Z-sample",
+  "step": "Documentation",
+  "status": "accepted",
+  "startedAt": "2026-04-18T19:07:43.062Z",
+  "completedAt": "2026-04-18T19:09:09.993Z",
+  "acceptedAt": "2026-04-18T19:09:09.993Z",
+  "repairAttempts": 0,
+  "storyId": "ST-00004",
+  "storyTitle": "Add AI ennemy snake (one for now, but maybe more later)",
+  "storyStepAtStart": "Documentation",
+  "storyStepAtEnd": "Documentation",
+  "storyBaseCommit": "156690dfceca31b278db250e17e0684657f99827",
+  "storyBranchName": "story/ST-00004",
+  "storyTargetBranchName": "main",
+  "storyImplementationCommit": "a658dc97e2cc9ec8c51bcc559ee468ea23bb34d7",
+  "storyChangedPaths": [
+    "snake/src/game.rs",
+    "snake/src/render.rs",
+    "snake/README.md"
+  ],
+  "storySpecPaths": [
+    "doc/spec/gameplay.md"
+  ],
+  "outputPaths": [
+    "test_project/doc/story/ST-00004/Documentation.md",
+    "doc/spec/gameplay.md"
+  ],
+  "artifactPath": "history/Documentation/20260418T190743062Z-sample/artifact.md",
+  "tracePath": "history/Documentation/20260418T190743062Z-sample/trace.log",
+  "parsedArtifact": {
+    "targetSpecPath": "doc/spec/gameplay.md",
+    "changeSummary": "Adds a dedicated Snake gameplay specification that defines the current runtime rules for the terminal game, including the single AI enemy snake, shared food behavior, fatal collision handling, and the rule that only player food increases score and accelerates tick speed.",
+    "canonicalSpec": "# Snake Gameplay Specification"
+  }
+}

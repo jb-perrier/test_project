@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "runId": "20260416T212639835Z-sample",
+  "step": "Implementation",
+  "status": "accepted",
+  "startedAt": "2026-04-16T21:26:39.835Z",
+  "completedAt": "2026-04-16T21:26:59.153Z",
+  "acceptedAt": "2026-04-16T21:26:59.153Z",
+  "repairAttempts": 0,
+  "storyId": "ST-00001",
+  "storyTitle": "Snake game",
+  "storyStepAtStart": "Implementation",
+  "storyStepAtEnd": "Implementation",
+  "storyBaseCommit": "136c061d2ac09b098290c46e440eaffd68ba8a93",
+  "storyBranchName": "story/ST-00001",
+  "storyTargetBranchName": "main",
+  "storyImplementationCommit": "9b15a1d2f1b14fd1ad5b5d580f4b06c5b98f4b3e",
+  "storyChangedPaths": [
+    "snake/src/main.rs"
+  ],
+  "storySpecPaths": [],
+  "outputPaths": [
+    "test_project/doc/story/ST-00001/Implementation.md",
+    "snake/src/main.rs"
+  ],
+  "artifactPath": "history/Implementation/20260416T212639835Z-sample/artifact.md",
+  "tracePath": "history/Implementation/20260416T212639835Z-sample/trace.log",
+  "parsedArtifact": {
+    "executionSummary": "- Inspected the existing `snake/` crate files.\n- Kept the standalone Rust Snake implementation isolated under `snake/`.\n- Applied one code fix in `snake/src/main.rs`:\n  - hardened terminal setup cleanup if entering the alternate screen fails after raw mode is enabled.\n- Left gameplay, input mapping, rendering, and tests unchanged.",
+    "filesChanged": [
+      "`snake/src/main.rs`",
+      "Updated `TerminalGuard::enter` to roll back terminal state on setup failure by restoring cursor/screen state and disabling raw mode before returning the error."
+    ],
+    "validationCommands": [
+      "`cargo fmt --manifest-path snake/Cargo.toml`",
+      "`cargo test --manifest-path snake/Cargo.toml`",
+      "`cargo run --manifest-path snake/Cargo.toml`"
+    ],
+    "notes": [
+      "No files outside `snake/` were modified.",
+      "I did not run commands because no command execution tool was available here.",
+      "Existing unrelated baseline drift in the root JS/TS files was not touched."
+    ]
+  }
+}

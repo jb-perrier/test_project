@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "runId": "20260418T143029637Z-sample",
+  "step": "Draft",
+  "status": "accepted",
+  "startedAt": "2026-04-18T14:30:29.637Z",
+  "completedAt": "2026-04-18T14:30:46.283Z",
+  "acceptedAt": "2026-04-18T14:30:46.283Z",
+  "repairAttempts": 0,
+  "storyId": "ST-00002",
+  "storyTitle": "Use ratatui for the ui",
+  "storyStepAtStart": "Draft",
+  "storyStepAtEnd": "Draft",
+  "storyBaseCommit": "58f626b49cf5a8d2a67b92254f1835561e16f83a",
+  "storyBranchName": "story/ST-00002",
+  "storyTargetBranchName": "main",
+  "storyImplementationCommit": "a23bce557fff39284e65a00ef8906bdd2d767f3a",
+  "storyChangedPaths": [],
+  "storySpecPaths": [],
+  "outputPaths": [
+    "test_project/doc/story/ST-00002/Draft.md"
+  ],
+  "artifactPath": "history/Draft/20260418T143029637Z-sample/artifact.md",
+  "tracePath": "history/Draft/20260418T143029637Z-sample/trace.log"
+}

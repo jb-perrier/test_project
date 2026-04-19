@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "runId": "20260418T182216708Z-sample",
+  "step": "Draft",
+  "status": "accepted",
+  "startedAt": "2026-04-18T18:22:16.708Z",
+  "completedAt": "2026-04-18T18:23:53.847Z",
+  "acceptedAt": "2026-04-18T18:23:53.847Z",
+  "repairAttempts": 0,
+  "storyId": "ST-00004",
+  "storyTitle": "Add AI ennemy snake (one for now, but maybe more later)",
+  "storyStepAtStart": "Draft",
+  "storyStepAtEnd": "Draft",
+  "storyBaseCommit": "156690dfceca31b278db250e17e0684657f99827",
+  "storyBranchName": "story/ST-00004",
+  "storyTargetBranchName": "main",
+  "storyImplementationCommit": "a658dc97e2cc9ec8c51bcc559ee468ea23bb34d7",
+  "storyChangedPaths": [],
+  "storySpecPaths": [],
+  "outputPaths": [
+    "test_project/doc/story/ST-00004/Draft.md"
+  ],
+  "artifactPath": "history/Draft/20260418T182216708Z-sample/artifact.md",
+  "tracePath": "history/Draft/20260418T182216708Z-sample/trace.log"
+}

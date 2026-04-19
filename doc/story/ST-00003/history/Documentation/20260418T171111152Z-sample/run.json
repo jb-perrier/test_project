@@ -1,0 +1,36 @@
+{
+  "version": 1,
+  "runId": "20260418T171111152Z-sample",
+  "step": "Documentation",
+  "status": "accepted",
+  "startedAt": "2026-04-18T17:11:11.152Z",
+  "completedAt": "2026-04-18T17:11:18.437Z",
+  "acceptedAt": "2026-04-18T17:11:18.437Z",
+  "repairAttempts": 0,
+  "storyId": "ST-00003",
+  "storyTitle": "Reduce UI size, increase game size",
+  "storyStepAtStart": "Documentation",
+  "storyStepAtEnd": "Documentation",
+  "storyBaseCommit": "6fbee6ec4127bc2d4ff4f355718a657c09c012b5",
+  "storyBranchName": "story/ST-00003",
+  "storyTargetBranchName": "main",
+  "storyImplementationCommit": "a7fdabf0a83c4fc317b973a2ed489a9520a8ce7f",
+  "storyChangedPaths": [
+    "snake/src/render.rs",
+    "snake/README.md"
+  ],
+  "storySpecPaths": [
+    "doc/spec/ui.md"
+  ],
+  "outputPaths": [
+    "test_project/doc/story/ST-00003/Documentation.md",
+    "doc/spec/ui.md"
+  ],
+  "artifactPath": "history/Documentation/20260418T171111152Z-sample/artifact.md",
+  "tracePath": "history/Documentation/20260418T171111152Z-sample/trace.log",
+  "parsedArtifact": {
+    "targetSpecPath": "doc/spec/ui.md",
+    "changeSummary": "- The Snake section now specifies a compact board-first terminal layout instead of a larger title-plus-sidebar presentation.\n- The spec now requires condensed always-visible game information, compact phase-specific guidance, and a larger on-screen playfield footprint through wider rendered board cells.\n- Snake gameplay rules, controls, crate isolation, and resize-warning behavior remain unchanged.",
+    "canonicalSpec": "# Test Project Specification"
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "version": 1,
+  "runId": "20260418T170715254Z-sample",
+  "step": "Review",
+  "status": "accepted",
+  "startedAt": "2026-04-18T17:07:15.254Z",
+  "completedAt": "2026-04-18T17:07:48.923Z",
+  "acceptedAt": "2026-04-18T17:07:48.923Z",
+  "repairAttempts": 0,
+  "storyId": "ST-00003",
+  "storyTitle": "Reduce UI size, increase game size",
+  "storyStepAtStart": "Review",
+  "storyStepAtEnd": "Review",
+  "storyBaseCommit": "6fbee6ec4127bc2d4ff4f355718a657c09c012b5",
+  "storyBranchName": "story/ST-00003",
+  "storyTargetBranchName": "main",
+  "storyImplementationCommit": "a7fdabf0a83c4fc317b973a2ed489a9520a8ce7f",
+  "storyChangedPaths": [
+    "snake/src/render.rs",
+    "snake/README.md"
+  ],
+  "storySpecPaths": [],
+  "outputPaths": [
+    "test_project/doc/story/ST-00003/Review.md"
+  ],
+  "artifactPath": "history/Review/20260418T170715254Z-sample/artifact.md",
+  "tracePath": "history/Review/20260418T170715254Z-sample/trace.log",
+  "parsedArtifact": {
+    "verdict": "approved",
+    "coverage": "complete",
+    "validationStatus": "declared-only",
+    "reviewedHeadCommit": "a7fdabf0a83c4fc317b973a2ed489a9520a8ce7f",
+    "reviewedFiles": [
+      "snake/README.md",
+      "snake/src/render.rs"
+    ],
+    "blindSpots": []
+  }
+}

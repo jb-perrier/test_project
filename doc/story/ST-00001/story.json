@@ -31,5 +31,38 @@
   "specFilesTouched": [
     "doc/spec/overview.md"
   ],
-  "reviewVerdict": "approved"
+  "reviewVerdict": "approved",
+  "runHistoryVersion": 1,
+  "latestRunByStep": {
+    "Draft": "20260416T101710000Z-sample",
+    "Plan": "20260416T111821591Z-sample",
+    "Implementation": "20260416T212639835Z-sample",
+    "Review": "20260416T212730336Z-sample",
+    "Documentation": "20260416T212842000Z-sample",
+    "Merge": "20260416T213102000Z-sample"
+  },
+  "acceptedRunByStep": {
+    "Draft": "20260416T101710000Z-sample",
+    "Plan": "20260416T111821591Z-sample",
+    "Implementation": "20260416T212639835Z-sample",
+    "Review": "20260416T212730336Z-sample",
+    "Documentation": "20260416T212842000Z-sample",
+    "Merge": "20260416T213102000Z-sample"
+  },
+  "artifactHashByStep": {
+    "Draft": "6c09145b7b96211d7d9f426bdb11c02dc49ff740a868554587d35fdfeb5a0aba",
+    "Plan": "f7f3d252751d2e259ad10694636516ec31946064a3a3b08483b8cd79702022f8",
+    "Implementation": "fd4ccf36732230774b002959979349362ce3e5660d162f4666044bbeecaa7df5",
+    "Review": "32aa46fa2799bb414d89f8481ca3c0fa13e2ed7339b4f66f5eae82c09b0ad027",
+    "Documentation": "b0d206ab058ae1c2c6f10691ad0f344be9cc48dec9572eace65b6b6b47b6f3f0",
+    "Merge": "0d4adb152422903475eff6bf71ee93f586ee26b3b11f24faa5c4d21cbb330988"
+  },
+  "lastRunStatusByStep": {
+    "Draft": "accepted",
+    "Plan": "accepted",
+    "Implementation": "accepted",
+    "Review": "accepted",
+    "Documentation": "accepted",
+    "Merge": "accepted"
+  }
 }

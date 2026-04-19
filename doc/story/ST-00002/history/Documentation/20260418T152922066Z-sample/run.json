@@ -1,0 +1,39 @@
+{
+  "version": 1,
+  "runId": "20260418T152922066Z-sample",
+  "step": "Documentation",
+  "status": "accepted",
+  "startedAt": "2026-04-18T15:29:22.066Z",
+  "completedAt": "2026-04-18T15:30:54.416Z",
+  "acceptedAt": "2026-04-18T15:30:54.416Z",
+  "repairAttempts": 0,
+  "storyId": "ST-00002",
+  "storyTitle": "Use ratatui for the ui",
+  "storyStepAtStart": "Documentation",
+  "storyStepAtEnd": "Documentation",
+  "storyBaseCommit": "58f626b49cf5a8d2a67b92254f1835561e16f83a",
+  "storyBranchName": "story/ST-00002",
+  "storyTargetBranchName": "main",
+  "storyImplementationCommit": "a23bce557fff39284e65a00ef8906bdd2d767f3a",
+  "storyChangedPaths": [
+    "snake/Cargo.toml",
+    "snake/Cargo.lock",
+    "snake/src/main.rs",
+    "snake/src/render.rs",
+    "snake/README.md"
+  ],
+  "storySpecPaths": [
+    "doc/spec/overview.md"
+  ],
+  "outputPaths": [
+    "test_project/doc/story/ST-00002/Documentation.md",
+    "doc/spec/overview.md"
+  ],
+  "artifactPath": "history/Documentation/20260418T152922066Z-sample/artifact.md",
+  "tracePath": "history/Documentation/20260418T152922066Z-sample/trace.log",
+  "parsedArtifact": {
+    "targetSpecPath": "doc/spec/overview.md",
+    "changeSummary": "- The canonical project spec now records the Snake sample's `ratatui`-based terminal UI in the workspace overview instead of using a story-named spec file.",
+    "canonicalSpec": "# Test Project Specification"
+  }
+}

@@ -42,5 +42,38 @@
   ],
   "specFilesTouched": [
     "doc/spec/ui.md"
-  ]
+  ],
+  "runHistoryVersion": 1,
+  "latestRunByStep": {
+    "Draft": "20260418T161528379Z-sample",
+    "Plan": "20260418T165657763Z-sample",
+    "Implementation": "20260418T170101374Z-sample",
+    "Review": "20260418T170715254Z-sample",
+    "Documentation": "20260418T171111152Z-sample",
+    "Merge": "20260418T171441348Z-sample"
+  },
+  "acceptedRunByStep": {
+    "Draft": "20260418T161528379Z-sample",
+    "Plan": "20260418T165657763Z-sample",
+    "Implementation": "20260418T170101374Z-sample",
+    "Review": "20260418T170715254Z-sample",
+    "Documentation": "20260418T171111152Z-sample",
+    "Merge": "20260418T171441348Z-sample"
+  },
+  "artifactHashByStep": {
+    "Draft": "a37b1536105d5296e414af0f79d00143c83364284cdf11ca8953bd14dd63d169",
+    "Plan": "cab81dde6d87975e0299bfb3ed78061d81e91c4d2607296f7d06fc96adbece5d",
+    "Implementation": "07d5fefa1838ae48bc1c7effbb5139c5383cfbbe24a0b33028f5a657d7576448",
+    "Review": "797053321e46a5548d770409d2b2787945e8c78b9697290becec47c0e5556d12",
+    "Documentation": "961a8ae3d984a8d2c27d43eeb0d2341df388e52672223830498854f655da709b",
+    "Merge": "6dd24f0d9373ac6ce31f13ee341ea534e908aa0051ba01983f3534efbc7e3b78"
+  },
+  "lastRunStatusByStep": {
+    "Draft": "accepted",
+    "Plan": "accepted",
+    "Implementation": "accepted",
+    "Review": "accepted",
+    "Documentation": "accepted",
+    "Merge": "accepted"
+  }
 }

@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "runId": "20260418T171441348Z-sample",
+  "step": "Merge",
+  "status": "accepted",
+  "startedAt": "2026-04-18T17:14:41.348Z",
+  "completedAt": "2026-04-18T17:14:41.348Z",
+  "acceptedAt": "2026-04-18T17:14:41.348Z",
+  "repairAttempts": 0,
+  "storyId": "ST-00003",
+  "storyTitle": "Reduce UI size, increase game size",
+  "storyStepAtStart": "Merge",
+  "storyStepAtEnd": "Done",
+  "storyBaseCommit": "6fbee6ec4127bc2d4ff4f355718a657c09c012b5",
+  "storyBranchName": "story/ST-00003",
+  "storyTargetBranchName": "main",
+  "storyImplementationCommit": "a7fdabf0a83c4fc317b973a2ed489a9520a8ce7f",
+  "storyChangedPaths": [
+    "snake/src/render.rs",
+    "snake/README.md"
+  ],
+  "storySpecPaths": [
+    "doc/spec/ui.md"
+  ],
+  "outputPaths": [
+    "test_project/doc/story/ST-00003/Merge.md"
+  ],
+  "artifactPath": "history/Merge/20260418T171441348Z-sample/artifact.md",
+  "tracePath": "history/Merge/20260418T171441348Z-sample/trace.log"
+}

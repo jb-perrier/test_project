@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "runId": "20260418T190641679Z-sample",
+  "step": "Review",
+  "status": "accepted",
+  "startedAt": "2026-04-18T19:06:41.679Z",
+  "completedAt": "2026-04-18T19:07:07.010Z",
+  "acceptedAt": "2026-04-18T19:07:07.010Z",
+  "repairAttempts": 0,
+  "storyId": "ST-00004",
+  "storyTitle": "Add AI ennemy snake (one for now, but maybe more later)",
+  "storyStepAtStart": "Review",
+  "storyStepAtEnd": "Review",
+  "storyBaseCommit": "156690dfceca31b278db250e17e0684657f99827",
+  "storyBranchName": "story/ST-00004",
+  "storyTargetBranchName": "main",
+  "storyImplementationCommit": "a658dc97e2cc9ec8c51bcc559ee468ea23bb34d7",
+  "storyChangedPaths": [
+    "snake/src/game.rs",
+    "snake/src/render.rs",
+    "snake/README.md"
+  ],
+  "storySpecPaths": [],
+  "outputPaths": [
+    "test_project/doc/story/ST-00004/Review.md"
+  ],
+  "artifactPath": "history/Review/20260418T190641679Z-sample/artifact.md",
+  "tracePath": "history/Review/20260418T190641679Z-sample/trace.log",
+  "parsedArtifact": {
+    "verdict": "approved",
+    "coverage": "complete",
+    "validationStatus": "declared-only",
+    "reviewedHeadCommit": "a658dc97e2cc9ec8c51bcc559ee468ea23bb34d7",
+    "reviewedFiles": [
+      "snake/README.md",
+      "snake/src/game.rs",
+      "snake/src/render.rs"
+    ],
+    "blindSpots": []
+  }
+}

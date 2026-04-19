@@ -1,0 +1,31 @@
+{
+  "version": 1,
+  "runId": "20260418T190916728Z-sample",
+  "step": "Merge",
+  "status": "accepted",
+  "startedAt": "2026-04-18T19:09:16.728Z",
+  "completedAt": "2026-04-18T19:09:16.728Z",
+  "acceptedAt": "2026-04-18T19:09:16.728Z",
+  "repairAttempts": 0,
+  "storyId": "ST-00004",
+  "storyTitle": "Add AI ennemy snake (one for now, but maybe more later)",
+  "storyStepAtStart": "Merge",
+  "storyStepAtEnd": "Done",
+  "storyBaseCommit": "156690dfceca31b278db250e17e0684657f99827",
+  "storyBranchName": "story/ST-00004",
+  "storyTargetBranchName": "main",
+  "storyImplementationCommit": "a658dc97e2cc9ec8c51bcc559ee468ea23bb34d7",
+  "storyChangedPaths": [
+    "snake/src/game.rs",
+    "snake/src/render.rs",
+    "snake/README.md"
+  ],
+  "storySpecPaths": [
+    "doc/spec/gameplay.md"
+  ],
+  "outputPaths": [
+    "test_project/doc/story/ST-00004/Merge.md"
+  ],
+  "artifactPath": "history/Merge/20260418T190916728Z-sample/artifact.md",
+  "tracePath": "history/Merge/20260418T190916728Z-sample/trace.log"
+}

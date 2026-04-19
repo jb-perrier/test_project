@@ -1,0 +1,61 @@
+{
+  "version": 1,
+  "runId": "20260418T182713814Z-sample",
+  "step": "Plan",
+  "status": "accepted",
+  "startedAt": "2026-04-18T18:27:13.814Z",
+  "completedAt": "2026-04-18T18:27:26.694Z",
+  "acceptedAt": "2026-04-18T18:27:26.694Z",
+  "repairAttempts": 0,
+  "storyId": "ST-00004",
+  "storyTitle": "Add AI ennemy snake (one for now, but maybe more later)",
+  "storyStepAtStart": "Plan",
+  "storyStepAtEnd": "Plan",
+  "storyBaseCommit": "156690dfceca31b278db250e17e0684657f99827",
+  "storyBranchName": "story/ST-00004",
+  "storyTargetBranchName": "main",
+  "storyImplementationCommit": "a658dc97e2cc9ec8c51bcc559ee468ea23bb34d7",
+  "storyChangedPaths": [],
+  "storySpecPaths": [],
+  "outputPaths": [
+    "test_project/doc/story/ST-00004/Plan.md"
+  ],
+  "artifactPath": "history/Plan/20260418T182713814Z-sample/artifact.md",
+  "tracePath": "history/Plan/20260418T182713814Z-sample/trace.log",
+  "parsedArtifact": {
+    "summary": "- Add enemy-aware gameplay in `snake/src/game.rs`, keep controls and the main tick loop unchanged, extend board rendering for enemy head/body, and update Snake docs/spec text. Existing dependencies appear sufficient.",
+    "findings": [
+      "`snake/src/game.rs` currently models only one snake: `VecDeque<Point>` plus one direction/pending turn, one score, one food, and `Cell::{Empty, Head, Body, Food}`.",
+      "`snake/src/main.rs` advances gameplay through `Game::step(...)` on each running tick, so enemy movement can stay inside game logic without changing terminal or input flow.",
+      "`snake/src/input.rs` already matches the required controls; no input changes are needed.",
+      "`snake/src/render.rs` renders from the `Cell` model in the compact board-first layout, so enemy visuals can be added without changing the layout structure.",
+      "`snake/Cargo.toml` already includes `rand`, `ratatui`, and `crossterm`; no new dependency is expected.",
+      "`snake/README.md`, `doc/spec/ui.md`, and `doc/spec/overview.md` still describe solo play, and `doc/spec/overview.md` also contains stale “unchanged gameplay” / older layout wording that should be corrected while adding enemy behavior."
+    ],
+    "affectedFiles": [
+      "`snake/src/game.rs` — shared snake state, enemy AI, collision resolution, food spawning, and unit tests.",
+      "`snake/src/render.rs` — distinct enemy head/body rendering.",
+      "`snake/src/main.rs` — minimal follow-up only if `Game` APIs change.",
+      "`snake/README.md` — describe enemy behavior, shared food, and collision outcomes.",
+      "`doc/spec/ui.md` — update Snake UI/gameplay behavior.",
+      "`doc/spec/overview.md` — update broad Snake spec and remove stale solo-only wording."
+    ],
+    "implementationApproach": "1. Factor the single-snake state in `game.rs` into a small reusable snake model so player and enemy share body/direction helpers, while still keeping only one enemy field for this story.\n2. Expand board cell reporting to distinguish player head/body, enemy head/body, food, and empty cells.\n3. Add enemy initialization on a deterministic non-overlapping start position, and refactor occupancy helpers so food spawning always excludes both snakes.\n4. Extract a deterministic enemy move chooser that:\n   - evaluates wrapped movement toward food,\n   - rejects immediately fatal moves,\n   - falls back through a fixed safe-direction order for simple tests.\n5. Rework `Game::step(...)` to resolve player and enemy moves from the same tick snapshot, so self-collision, player/enemy overlap, and head-to-head cases are handled consistently instead of by update order.\n6. Preserve current scoring and tick-speed behavior by awarding score only on player food; enemy food only grows the enemy and respawns food.\n7. Update rendering styles/symbols so the enemy is clearly visible in ready, running, and game-over states without changing the compact layout.\n8. Add or extend unit tests for distinct initialization, enemy AI preference/fallback, wraparound, food spawning, enemy growth, and fatal collision scenarios.",
+    "risks": [
+      "Simultaneous movement rules are the main risk: head-to-head, head-swap, and tail-vacate cases can become inconsistent if resolved sequentially.",
+      "Two snakes plus food require more free space than the current solo game; very small board sizes may need a guard or clearer assumptions.",
+      "Spec text is partly stale already, so documentation changes must avoid preserving outdated solo-only or sidebar-layout wording."
+    ],
+    "validation": [
+      "Run `cargo test --manifest-path snake/Cargo.toml`.",
+      "Run `cargo run --manifest-path snake/Cargo.toml` and verify:",
+      "ready and game-over screens still show player, enemy, and food distinctly,",
+      "controls remain unchanged,",
+      "enemy moves every running tick and chases food with safe fallbacks,",
+      "enemy food grows the enemy without changing player score or tick speed,",
+      "food never appears on either snake,",
+      "enemy-related fatal collisions end the run,",
+      "compact layout and resize warning still work."
+    ]
+  }
+}

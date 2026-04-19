@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "runId": "20260416T101710000Z-sample",
+  "step": "Draft",
+  "status": "accepted",
+  "startedAt": "2026-04-16T10:17:10.000Z",
+  "completedAt": "2026-04-16T10:21:25.131Z",
+  "acceptedAt": "2026-04-16T10:21:25.131Z",
+  "repairAttempts": 0,
+  "storyId": "ST-00001",
+  "storyTitle": "Snake game",
+  "storyStepAtStart": "Draft",
+  "storyStepAtEnd": "Draft",
+  "storyBaseCommit": "136c061d2ac09b098290c46e440eaffd68ba8a93",
+  "storyBranchName": "story/ST-00001",
+  "storyTargetBranchName": "main",
+  "storyImplementationCommit": "9b15a1d2f1b14fd1ad5b5d580f4b06c5b98f4b3e",
+  "storyChangedPaths": [],
+  "storySpecPaths": [],
+  "outputPaths": [
+    "test_project/doc/story/ST-00001/Draft.md"
+  ],
+  "artifactPath": "history/Draft/20260416T101710000Z-sample/artifact.md",
+  "tracePath": "history/Draft/20260416T101710000Z-sample/trace.log"
+}

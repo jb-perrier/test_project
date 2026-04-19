@@ -1,0 +1,63 @@
+{
+  "version": 1,
+  "runId": "20260418T150751829Z-sample",
+  "step": "Implementation",
+  "status": "accepted",
+  "startedAt": "2026-04-18T15:07:51.829Z",
+  "completedAt": "2026-04-18T15:08:54.589Z",
+  "acceptedAt": "2026-04-18T15:08:54.589Z",
+  "repairAttempts": 0,
+  "storyId": "ST-00002",
+  "storyTitle": "Use ratatui for the ui",
+  "storyStepAtStart": "Implementation",
+  "storyStepAtEnd": "Implementation",
+  "storyBaseCommit": "58f626b49cf5a8d2a67b92254f1835561e16f83a",
+  "storyBranchName": "story/ST-00002",
+  "storyTargetBranchName": "main",
+  "storyImplementationCommit": "a23bce557fff39284e65a00ef8906bdd2d767f3a",
+  "storyChangedPaths": [
+    "snake/Cargo.toml",
+    "snake/Cargo.lock",
+    "snake/src/main.rs",
+    "snake/src/render.rs",
+    "snake/README.md"
+  ],
+  "storySpecPaths": [],
+  "outputPaths": [
+    "test_project/doc/story/ST-00002/Implementation.md",
+    "snake/Cargo.toml",
+    "snake/Cargo.lock",
+    "snake/src/main.rs",
+    "snake/src/render.rs",
+    "snake/README.md"
+  ],
+  "artifactPath": "history/Implementation/20260418T150751829Z-sample/artifact.md",
+  "tracePath": "history/Implementation/20260418T150751829Z-sample/trace.log",
+  "parsedArtifact": {
+    "executionSummary": "Updated the `snake` crate to use `ratatui` as the active render path. The existing in-progress changes were kept, and `snake/src/render.rs` was finalized to use explicit `ratatui` frame lifetimes so the new UI code is valid for current Rust linting and API expectations.",
+    "filesChanged": [
+      "`snake/Cargo.toml`",
+      "Added `ratatui = \"0.26\"`.",
+      "`snake/Cargo.lock`",
+      "Captured the new dependency graph for `ratatui`.",
+      "`snake/src/main.rs`",
+      "Replaced manual string printing with a `ratatui::Terminal` draw loop.",
+      "Kept `crossterm` for raw mode, alternate screen, and input handling.",
+      "`snake/src/render.rs`",
+      "Replaced the old string-frame renderer with a structured `ratatui` UI.",
+      "Added sections for title, board, stats, status, controls, and a small-terminal warning.",
+      "Preserved board symbols and gameplay data from `Game`.",
+      "Finalized the signatures to use `Frame<'_>`.",
+      "`snake/README.md`",
+      "Updated story reference and documented the `ratatui` UI plus resize-warning behavior."
+    ],
+    "validationCommands": [
+      "`cargo run --manifest-path snake/Cargo.toml`",
+      "`cargo test --manifest-path snake/Cargo.toml`"
+    ],
+    "notes": [
+      "Gameplay logic in `snake/src/game.rs` and input mapping in `snake/src/input.rs` were left unchanged.",
+      "I did not run validation commands in the workspace during this step, so runtime/build verification remains pending."
+    ]
+  }
+}

@@ -44,5 +44,38 @@
   ],
   "specFilesTouched": [
     "doc/spec/gameplay.md"
-  ]
+  ],
+  "runHistoryVersion": 1,
+  "latestRunByStep": {
+    "Draft": "20260418T182216708Z-sample",
+    "Plan": "20260418T182713814Z-sample",
+    "Implementation": "20260418T190408452Z-sample",
+    "Review": "20260418T190641679Z-sample",
+    "Documentation": "20260418T190743062Z-sample",
+    "Merge": "20260418T190916728Z-sample"
+  },
+  "acceptedRunByStep": {
+    "Draft": "20260418T182216708Z-sample",
+    "Plan": "20260418T182713814Z-sample",
+    "Implementation": "20260418T190408452Z-sample",
+    "Review": "20260418T190641679Z-sample",
+    "Documentation": "20260418T190743062Z-sample",
+    "Merge": "20260418T190916728Z-sample"
+  },
+  "artifactHashByStep": {
+    "Draft": "3bb9337bbfe65e20c7e70ead10220020bf7bb32b4692f7d28627996c5dbd0a4d",
+    "Plan": "15b6d414a605382b2efd2c16dff9fdadc89327fccad344f14651b34abee4ada5",
+    "Implementation": "c40653229f8f4d00a726aa73ef7c77353292a42dd10ceb10b69fcc81fd9ddfcd",
+    "Review": "0dcb4edfbee43e8b180a958e1fe0cf24bf98399930f52eb289cd886878dc0c32",
+    "Documentation": "a029a69ca94fcbd5e257511f40b7c45d7648fb9508ad1e42de82d64d8f3ee41e",
+    "Merge": "32ff018a53d37e80dfd202b7aaa6ff1a2474a0619f02205dc9d93f5cd81de899"
+  },
+  "lastRunStatusByStep": {
+    "Draft": "accepted",
+    "Plan": "accepted",
+    "Implementation": "accepted",
+    "Review": "accepted",
+    "Documentation": "accepted",
+    "Merge": "accepted"
+  }
 }

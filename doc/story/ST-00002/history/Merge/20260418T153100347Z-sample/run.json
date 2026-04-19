@@ -1,0 +1,33 @@
+{
+  "version": 1,
+  "runId": "20260418T153100347Z-sample",
+  "step": "Merge",
+  "status": "accepted",
+  "startedAt": "2026-04-18T15:31:00.347Z",
+  "completedAt": "2026-04-18T15:31:00.347Z",
+  "acceptedAt": "2026-04-18T15:31:00.347Z",
+  "repairAttempts": 0,
+  "storyId": "ST-00002",
+  "storyTitle": "Use ratatui for the ui",
+  "storyStepAtStart": "Merge",
+  "storyStepAtEnd": "Done",
+  "storyBaseCommit": "58f626b49cf5a8d2a67b92254f1835561e16f83a",
+  "storyBranchName": "story/ST-00002",
+  "storyTargetBranchName": "main",
+  "storyImplementationCommit": "a23bce557fff39284e65a00ef8906bdd2d767f3a",
+  "storyChangedPaths": [
+    "snake/Cargo.toml",
+    "snake/Cargo.lock",
+    "snake/src/main.rs",
+    "snake/src/render.rs",
+    "snake/README.md"
+  ],
+  "storySpecPaths": [
+    "doc/spec/overview.md"
+  ],
+  "outputPaths": [
+    "test_project/doc/story/ST-00002/Merge.md"
+  ],
+  "artifactPath": "history/Merge/20260418T153100347Z-sample/artifact.md",
+  "tracePath": "history/Merge/20260418T153100347Z-sample/trace.log"
+}
