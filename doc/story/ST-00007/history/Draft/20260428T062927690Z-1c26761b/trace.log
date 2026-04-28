@@ -1,0 +1,4 @@
+[06:29:27] ST-00007 Draft | Started Draft for ST-00007.
+[06:29:27] ST-00007 Draft | Starting step: Preparing Draft for ST-00007.
+[06:29:28] ST-00007 Draft | Validating repository: Checking branch alignment and repository state.
+[06:29:28] ST-00007 Draft | Failed: Story ST-00007 has uncommitted story worktree changes and cannot continue with Draft: README.md [??]
